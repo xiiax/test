@@ -1,0 +1,501 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body{
+    width: 1512.8px;
+    height: 1000px;
+    background: url(../images/bgi.png);
+    background-repeat: no-repeat;
+    background-size: 1512.8px 1000px;
+}
+
+header{
+    padding-top: 5px;
+    height: 60px;
+}
+
+header h1{
+    font-size: 30px;
+    color: #fff;
+    text-align: center;
+    line-height: 60px;
+}
+
+.showTime{
+    padding-top: 60px;
+    position: absolute;
+    right: 5px;
+    top: 0;
+    line-height: 14px;
+    color: rgba(255,255,255,0.7);
+    font-size: 14px;
+}
+
+.mainbox{
+    display: flex;
+    width: 1500px;
+    height: 800px;
+    margin: 20px auto;
+    padding: 10px 10px 0;
+}
+
+.mainbox .column{
+    flex: 3;
+}
+
+.mainbox .column:nth-child(2){
+    flex: 4;
+}
+
+.box {
+    margin-top: 5px;
+    width: 440px;
+    height: 210px;
+    background-color: rgba(5,10,48,0.17);
+    border-radius: 5px;
+}
+
+.box2{
+    margin-top: 5px;
+    margin-left: 5px;
+    width: 575px;
+    height: 460px;
+    background-color: rgba(5,10,48,0.17);
+    border-radius: 5px;
+}
+
+.box3{
+    margin-top: 5px;
+    margin-left: 5px;
+    width: 575px;
+    height: 350px;
+    background-color: rgba(5,10,48,0.17);
+    border-radius: 5px;
+}
+
+.box4{
+    margin-top: 5px;
+    width: 440px;
+    height: 250px;
+    background-color: rgba(5,10,48,0.17);
+    border-radius: 5px;
+}
+
+.box5{
+    margin-top: 5px;
+    width: 440px;
+    height: 150px;
+    background-color: rgba(5,10,48,0.17);
+    border-radius: 5px;
+}
+
+.column h5{
+    width: 150px;
+    height: 20px;
+    color: #6E7B9D;
+}
+
+.expense_distributiob{
+    display: flex;
+    margin: 5px 5px;
+    width: 420px;
+    height: 200px;
+}
+
+.chart{
+    position: absolute;
+    width: 430px;
+    height: 180px;
+    margin-top: 10px;
+}
+
+.chart1{
+    margin-top: -10px;
+    width: 555px;
+    height: 600px;
+}
+
+.chart2{
+    margin-top: 10px;
+    width: 565px;
+    height: 400px;
+}
+
+.chart3{
+    width: 430px;
+    height: 215px;
+}
+
+.chart3_1{
+    margin-top: -100px;
+    margin-left: 5px;
+    width: 210px;
+    height: 115px;
+}
+
+.chart3_2{
+    margin-top: -120px;
+    margin-left: 230px;
+    width: 210px;
+    height: 115px;
+}
+
+.chart3_3{
+    margin-top: -80px;
+    margin-left: 20px;
+    width: 210px;
+    height: 80px;
+}
+
+.chart3_4{
+    margin-top: -80px;
+    margin-left: 240px;
+    width: 210px;
+    height: 60px;
+}
+
+.chart3 .text1{
+    margin-top: 20px;
+    width: 20px;
+    color: rgba(23,212,232,0.4);
+    font-weight: bold;
+    background-color: rgba(60,66,250,0.2);
+}
+
+.chart3 .text2{
+    margin-top: 0px;
+    width: 20px;
+    font-weight: bold;
+    color: rgb(23,212,232,0.4);
+    background-color: rgba(60,66,250,0.2);
+}
+
+.chart4{
+    width: 420px;
+    height: 120px;
+    margin-top: 5px;
+}
+
+.chart5{
+    width: 390px;
+    height: 200px;
+}
+
+.container{
+    margin-top: 20px;
+    width: 565px;
+    height: 490px;
+    background-color: rgba(5, 10, 48, 0.17);
+    border-radius: 5px;
+}
+
+.chart7{
+    width: 200px;
+    height: 200px;
+}
+
+.expense_distributiob{
+    width: 430px;
+    height: 200px;
+}
+
+.expense_distributiob .text{
+    font-size: 14px;
+    margin-top: 50px;
+    margin-left: 150px;
+    width: 190px;
+    height: 120px;
+}
+
+.expense_distributiob .text div{
+    margin-top: 0px;
+}
+
+.expense_distributiob .text span{
+    color: rgb(187,222,251);
+}
+
+.expense_distributiob .text span:nth-child(2){
+    font-weight: bold;
+    color: rgb(255,175,101);
+}
+
+.comment{
+    display: flex;
+    margin: 5px 5px;
+    width: 390px;
+    height: 200px;
+}
+
+.comment .text{
+    margin-top: 50px;
+    margin-left: -150px;
+}
+
+.comment .text div{
+    width: 250px;
+    height: 20px;
+    line-height: 20px;
+    font-size: 12px;
+    color: rgb(62,102,161);
+    background: linear-gradient(to right, rgba(26,45,88,0.3), rgba(0,17,72,0.4));
+    margin-top: 10px;
+    border-top-left-radius: 50px;
+    border-bottom-left-radius: 50px;
+}
+
+.comment .text span{
+    height: 20px;
+    vertical-align: middle;
+}
+
+.comment .text img{
+    width: 20px;
+    height: 20px;
+    vertical-align: middle;
+}
+
+.comment .text div:nth-child(2n+1){
+    width: 180px;
+    margin-left: 45px;
+    color: rgb(255,175,101);
+}
+
+.ticketing{
+    margin: 5px 5px;
+    width: 390px;
+    height: 200px;
+}
+
+.passenger_origin{
+    margin: 5px 5px;
+    width: 390px;
+    height: 200px;
+}
+
+.passenger_volume{
+    margin: 5px 5px;
+    width: 565px;
+    height: 490px;
+}
+
+.passenger_volume .no{
+    display: flex;
+    width: 420px;
+    height: 100px;
+    margin: 5px 0px 0px 5px;
+    color: #ffffff;
+}
+
+.passenger_volume .no .no_comment1{
+    width: 140px;
+    height: 65px;
+    margin: 5px;
+    border-radius: 5px;
+    background-color: rgba(60,66,250,0.2);
+}
+
+.passenger_volume .no .no_comment2{
+    width: 140px;
+    height: 65px;
+    margin: 5px;
+    border-radius: 5px;
+    background-color: rgba(23,212,232,0.2);
+}
+
+.passenger_volume .no .no_comment3{
+    width: 140px;
+    height: 65px;
+    margin: 5px;
+    border-radius: 5px;
+    background-color: rgba(253,49,84,0.2);
+}
+
+.passenger_volume .no .no_comment1 .text{
+    width: 140px;
+    height: 30px;
+    border-radius: 5px;
+    background-color: rgb(60,66,250);
+    line-height: 30px;
+}
+
+.passenger_volume .no .no_comment2 .text{
+    width: 140px;
+    height: 30px;
+    border-radius: 5px;
+    background-color: rgb(23,212,232);
+    line-height: 30px;
+}
+
+.passenger_volume .no .no_comment3 .text{
+    width: 140px;
+    height: 30px;
+    border-radius: 5px;
+    background-color: rgb(253,49,84);
+    line-height: 30px;
+}
+
+.passenger_volume .no .number{
+    font-size: 20px;
+    font-weight: bold;
+    margin-top: 5px;
+}
+
+.traffic_flow{
+    margin: 5px 5px 0px 5px;
+    width: 565px;
+    height: 350px;
+}
+
+.expense_stratum{
+    margin: 5px 5px;
+    width: 420px;
+    height: 180px;
+    background-color: rgba(5,10,48,0.17);
+    border-radius: 5px;
+}
+
+.expense_stratum .text1{
+    width: 420px;
+    height: 30px;
+    color: #fff;
+    background-color: rgba(60,66,250,0.2);
+    line-height: 30px;
+    text-align: center;
+}
+
+.expense_stratum .text2{
+    margin-top: 20px;
+    width: 420px;
+    height: 130px;
+    color: #fff;
+    background-color: rgba(23,212,232,0.2);
+    border-radius: 5px;
+}
+
+.expense_stratum .text2 .subtext{
+    font-size: 12px;
+    color: #6E7B9D;
+    padding: 5px;
+}
+
+.footer{
+    margin-top: 50px;
+    width: 100%;
+    height: 60px;
+    background-color: rgba(5,10,48,0.17);
+    color: rgba(255, 255, 255, 0.6);
+    text-align: center;
+    line-height: 60px;
+}
+
+.footer a{
+    color: rgba(255, 255, 255, 0.6);
+    text-decoration: none;
+}
+
+.footer a:hover{
+    color: #fff;
+}
+
+.ticket_summary{
+    margin-top: 20px;
+    width: 420px;
+    height: 250px;
+    background-color: rgba(60,66,250,0.2);
+    border-radius: 5px;
+}
+
+.ticket_summary .text1{
+    width: 420px;
+    height: 30px;
+    color: #fff;
+    background-color: rgba(60,66,250,0.2);
+    line-height: 30px;
+    text-align: center;
+}
+
+.ticket_summary .text2{
+    margin-top: 20px;
+    width: 420px;
+    height: 160px;
+    color: #fff;
+    background-color: rgba(23,212,232,0.2);
+    border-radius: 5px;
+}
+
+.ticket_summary .text2 .subtext{
+    font-size: 12px;
+    color: #6E7B9D;
+    padding: 5px;
+}
+
+.passenger_detail{
+    margin-top: 20px;
+    width: 565px;
+    height: 490px;
+    background-color: rgba(5,10,48,0.17);
+    border-radius: 5px;
+}
+
+.passenger_detail .text1{
+    width: 565px;
+    height: 40px;
+    color: #fff;
+    background-color: rgba(60,66,250,0.2);
+    line-height: 40px;
+    text-align: center;
+}
+
+.passenger_detail .details{
+    margin-top: 10px;
+    width: 550px;
+    height: 400px;
+    background-color: rgba(23,212,232,0.2);
+    border-radius: 5px;
+}
+
+.passenger_detail .details .item{
+    font-size: 14px;
+    color: #6E7B9D;
+    margin-top: 10px;
+}
+
+.passenger_detail .details .item span{
+    color: rgb(255,175,101);
+}
+
+.ticket_comment{
+    margin-top: 10px;
+    width: 420px;
+    height: 180px;
+    background-color: rgba(5,10,48,0.17);
+    border-radius: 5px;
+}
+
+.ticket_comment .text1{
+    width: 420px;
+    height: 30px;
+    color: #fff;
+    background-color: rgba(60,66,250,0.2);
+    line-height: 30px;
+    text-align: center;
+}
+
+.ticket_comment .comments{
+    margin-top: 20px;
+    width: 420px;
+    height: 130px;
+    color: #fff;
+    background-color: rgba(23,212,232,0.2);
+    border-radius: 5px;
+}
+
+.ticket_comment .comments .subtext{
+    font-size: 12px;
+    color: #6E7B9D;
+    padding: 5px;
+}

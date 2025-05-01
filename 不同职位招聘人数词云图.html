@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>不同职位招聘人数词云图</title>
+    <script src="../基于BOSS直聘的岗位大数据分析系统 数据可视化 (2)/js(1)/echarts.js"></script>
+    <script src="../基于BOSS直聘的岗位大数据分析系统 数据可视化 (2)/js(1)/echarts-wordcloud.min.js"></script>
+
+    
+<!--    页面头部-->
+<div style="padding: 10px; text-align: center;">
+    <ul style="list-style-type: none; padding: 0;">
+        <li style="display: inline; margin: 0 15px;">
+            <a href="../基于BOSS直聘的岗位大数据分析系统 数据可视化 (2)/薪资搜索与工作推荐.html" style="color: white; text-decoration: none; font-size: 18px;">薪资搜索与工作推荐</a>
+        </li>
+        <li style="display: inline; margin: 0 15px;">
+            <a href="../基于BOSS直聘的岗位大数据分析系统 数据可视化 (2)/boss直聘可视化.html" style="color: white; text-decoration: none; font-size: 18px;">主页面</a>
+        </li>
+        <li style="display: inline; margin: 0 15px;">
+            <a href="../基于BOSS直聘的岗位大数据分析系统 数据可视化 (2)/企业实训柱状图下钻.html" style="color: white; text-decoration: none; font-size: 18px;">热门工作招聘分析</a>
+        </li>
+    </ul>
+</div>
+
+
+
+    <style>
+        /* 添加背景图样式 */
+        body { 
+          font-family: Arial, sans-serif; 
+          padding: 20px; 
+          background-image: url("../基于BOSS直聘的岗位大数据分析系统 数据可视化 (2)/images/bgi.png"); /* 替换为你的图片路径 */
+          background-size: cover; /* 确保背景图覆盖整个页面 */
+          background-position: center; /* 让背景图居中显示 */
+          background-repeat: no-repeat; /* 背景图不重复 */
+        }
+    
+        #container { 
+          height: 400px; 
+          background-color: rgba(255, 255, 255, 1); /* 为图表区域添加半透明白色背景 */
+          padding: 20px;
+          border-radius: 8px;
+        }
+    
+        .input-container { 
+          margin-bottom: 20px; 
+          background-color: rgba(255, 255, 255, 0.8); /* 输入框区域的背景色 */
+          padding: 15px;
+          border-radius: 8px;
+        }
+    
+        label { 
+          margin-right: 10px; 
+        }
+      </style>
+
+    <style>
+        #search-container {
+            margin: 20px;
+            text-align: center;
+        }
+        #search-box {
+            width: 300px;
+            padding: 5px;
+            font-size: 16px;
+        }
+    </style>
+</head>
+<body>
+    <!-- Search Box -->
+    <div id="search-container">
+        <input type="text" id="search-box" placeholder="搜索职位" />
+    </div>
+
+    <!-- ECharts图表容器 -->
+    <div id="main" style="width: 700px; height: 500px; margin: 0 auto;"></div>
+
+    <script type="text/javascript">
+        // 基于准备好的DOM，初始化ECharts图表
+        var myChart = echarts.init(document.getElementById("main"));
+
+        // 词云数据
+        var data = [
+        { "name": "互联网", "value": 10000 },
+  { "name": "广告/公关/会展", "value": 20 },
+  { "name": "学术/科研", "value": 99 },
+  { "name": "培训/辅导机构", "value": 9999 },
+  { "name": "新闻/出版", "value": 9999 },
+  { "name": "在线教育", "value": 10000 },
+  { "name": "广告营销", "value": 499 },
+  { "name": "计算机软件", "value": 10000 },
+  { "name": "学前教育", "value": 499 },
+  { "name": "人工智能", "value": 99 },
+  { "name": "其他生活服务", "value": 20 },
+  { "name": "美容/美发", "value": 99 },
+  { "name": "学校/学历教育", "value": 20 },
+  { "name": "咨询", "value": 9999 },
+  { "name": "生活服务(O2O)", "value": 99 },
+  { "name": "文化艺术/娱乐", "value": 499 },
+  { "name": "职业培训", "value": 99 },
+  { "name": "企业服务", "value": 20 },
+  { "name": "家政服务", "value": 999 },
+  { "name": "通信/网络设备", "value": 99 },
+  { "name": "游戏", "value": 9999 },
+  { "name": "医疗健康", "value": 9999 },
+  { "name": "智能硬件", "value": 999 },
+  { "name": "移动互联网", "value": 99 },
+  { "name": "大数据", "value": 99 },
+  { "name": "电子商务", "value": 999 },
+  { "name": "非盈利机构", "value": 99 },
+  { "name": "批发/零售", "value": 99 },
+  { "name": "房地产开发经营", "value": 10000 },
+  { "name": "计算机服务", "value": 499 },
+  { "name": "社交网络与媒体", "value": 99 },
+  { "name": "物联网", "value": 999 },
+  { "name": "其他专业服务", "value": 499 },
+  { "name": "其他行业", "value": 10000 },
+  { "name": "财务/审计/税务", "value": 499 },
+  { "name": "日化", "value": 99 },
+  { "name": "金属制品", "value": 9999 },
+  { "name": "汽车后市场", "value": 20 },
+  { "name": "汽车研发/制造", "value": 499 },
+  { "name": "跨境物流", "value": 99 },
+  { "name": "环保", "value": 9999 },
+  { "name": "人力资源服务", "value": 20 },
+  { "name": "房地产中介/租赁", "value": 99 },
+  { "name": "食品/饮料/烟酒", "value": 20 },
+  { "name": "珠宝/首饰", "value": 20 },
+  { "name": "婚庆/摄影", "value": 20 },
+  { "name": "美容", "value": 9999 },
+  { "name": "进出口贸易", "value": 20 },
+
+  { "name": "家政服务", "value": 999 },
+  { "name": "计算机软件", "value": 20 },
+  { "name": "智能硬件", "value": 99 },
+  { "name": "移动互联网", "value": 20 },
+  { "name": "半导体/芯片", "value": 999 },
+  { "name": "新零售", "value": 20 },
+  { "name": "航天制造", "value": 499 },
+  { "name": "铁路制造", "value": 499 },
+  { "name": "社交网络", "value": 20 },
+  { "name": "食品/饮料/烟酒", "value": 10000 },
+  { "name": "生活服务", "value": 2000 },
+  { "name": "美容", "value": 999 },
+  { "name": "学校/学历教育", "value": 20 },
+  { "name": "智能硬件", "value": 999 },
+
+  { "name": "生活服务(O2O)", "value": 99 },
+  { "name": "互联网/电子商务", "value": 120 },
+  { "name": "市场/营销", "value": 85 },
+  { "name": "技术开发", "value": 150 },
+  { "name": "金融/投资", "value": 70 },
+  { "name": "医疗健康", "value": 65 },
+  { "name": "人力资源", "value": 50 },
+  { "name": "教育培训", "value": 90 },
+  { "name": "客服/售后", "value": 110 },
+  { "name": "销售", "value": 160 },
+  { "name": "行政/后勤", "value": 45 },
+  { "name": "法务", "value": 40 },
+  { "name": "建筑/房地产", "value": 80 },
+  { "name": "设计/创意", "value": 55 },
+
+  { "name": "生活服务(O2O)", "value": 99 },
+  { "name": "互联网/电子商务", "value": 120 },
+  { "name": "市场/营销", "value": 85 },
+  { "name": "技术开发", "value": 150 },
+  { "name": "金融/投资", "value": 70 },
+  { "name": "医疗健康", "value": 65 },
+  { "name": "人力资源", "value": 50 },
+  { "name": "教育培训", "value": 90 },
+  { "name": "客服/售后", "value": 110 },
+  { "name": "销售", "value": 160 },
+  { "name": "行政/后勤", "value": 45 },
+  { "name": "法务", "value": 40 },
+  { "name": "建筑/房地产", "value": 80 },
+  { "name": "设计/创意", "value": 55 },
+  { "name": "生产/制造", "value": 95 },
+  { "name": "交通/运输", "value": 50 },
+  { "name": "采购", "value": 60 },
+  { "name": "物流", "value": 85 },
+  { "name": "餐饮", "value": 100 },
+  { "name": "酒店/旅游", "value": 75 },
+  { "name": "广告/传媒", "value": 130 },
+  { "name": "公关/媒体", "value": 70 },
+  { "name": "艺术/设计", "value": 120 },
+  { "name": "零售/商超", "value": 115 },
+  { "name": "IT硬件", "value": 95 },
+  { "name": "系统/网络", "value": 100 },
+  { "name": "软件/互联网开发", "value": 140 },
+  { "name": "物流配送", "value": 105 },
+  { "name": "保险", "value": 85 },
+  { "name": "咨询", "value": 110 },
+  { "name": "法律", "value": 45 },
+  { "name": "汽车", "value": 120 },
+  { "name": "房地产开发", "value": 70 },
+  { "name": "人事/行政", "value": 60 },
+  { "name": "商业分析", "value": 125 },
+  { "name": "食品/饮料", "value": 55 },
+  { "name": "环境保护", "value": 45 },
+  { "name": "能源/矿产", "value": 80 },
+  { "name": "航空/航天", "value": 95 },
+  { "name": "翻译/口译", "value": 40 },
+  { "name": "政府/公共服务", "value": 30 },
+  { "name": "农林牧渔", "value": 65 },
+  { "name": "物业管理", "value": 50 },
+  { "name": "教育咨询", "value": 90 },
+  { "name": "科学研究", "value": 60 },
+  { "name": "医疗器械", "value": 75 },
+  { "name": "商业地产", "value": 80 },
+  { "name": "医药代表", "value": 95 },
+  { "name": "金融分析", "value": 110 },
+  { "name": "数据分析", "value": 120 },
+  { "name": "化工", "value": 50 },
+  { "name": "电子技术", "value": 135 },
+  { "name": "外贸", "value": 60 },
+  { "name": "建筑设计", "value": 85 },
+  { "name": "文化创意", "value": 110 },
+  { "name": "设备工程", "value": 55 },
+
+        ];
+
+        // ECharts 配置项
+        var option = {
+
+            
+            backgroundColor: 'rgba(128,128,128,0.1)',  // 背景颜色
+            title: {
+                text: '不同职位招聘人数',
+                x: 'center', y: 15,
+                textStyle: {
+                    color: 'green', fontSize: 22,
+                }
+            },
+            tooltip: { show: true },  // 提示框
+            
+            series: [{
+                name: '该职位招聘人数',
+                type: 'wordCloud',   // 设置为词云类型
+                sizeRange: [15, 100],  // 词云文字的大小范围
+                size: ['80%', '80%'],  // 词云的显示大小
+                textRotation: [0, 45, 90, 135, -45, -90],  // 文字的旋转角度
+                textPadding: 3,  // 文字间距
+                autoSize: { enable: true, minSize: 5 },  // 自动大小
+                textStyle: {
+                    normal: {
+                        color: function () {
+                            return 'rgb(' + [
+                                Math.round(Math.random() * 255),
+                                Math.round(Math.random() * 255),
+                                Math.round(Math.random() * 255)
+                            ].join(',') + ')';
+                        }
+                    },
+                    emphasis: {
+                        shadowBlur: 26,
+                        color: '#333',
+                        shadowColor: '#ccc',
+                        fontSize: 20
+                    }
+                },
+                data: data  // 设置词云数据
+            }]
+        };
+
+        // 使用配置项显示图表
+        myChart.setOption(option);
+
+        // 搜索框事件
+        document.getElementById("search-box").addEventListener("input", function (e) {
+            var searchTerm = e.target.value.toLowerCase();
+            var filteredData = data.filter(function (item) {
+                return item.name.toLowerCase().includes(searchTerm);
+            });
+
+            // 更新词云数据
+            myChart.setOption({
+                series: [{
+                    data: filteredData
+                }]
+            });
+        });
+    </script>
+</body>
+</html>

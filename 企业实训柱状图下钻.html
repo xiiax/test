@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en" style="height: 100%">
+<head>
+  <meta charset="utf-8">
+</head>
+<body style="height: 100%; margin: 0">
+  <!-- 页面头部 -->
+  <div style="padding: 10px; text-align: center;">
+    <ul style="list-style-type: none; padding: 0;">
+      <li style="display: inline; margin: 0 15px;">
+        <a href="../基于BOSS直聘的岗位大数据分析系统 数据可视化 (2)/薪资搜索与工作推荐.html" style="color: white; text-decoration: none; font-size: 18px;">薪资搜索与工作推荐</a>
+      </li>
+      <li style="display: inline; margin: 0 15px;">
+        <a href="../基于BOSS直聘的岗位大数据分析系统 数据可视化 (2)/boss直聘可视化.html" style="color: white; text-decoration: none; font-size: 18px;">主页面</a>
+      </li>
+      <li style="display: inline; margin: 0 15px;">
+        <a href="../基于BOSS直聘的岗位大数据分析系统 数据可视化 (2)/不同职位招聘人数词云图.html" style="color: white; text-decoration: none; font-size: 18px;">不同职位招聘人数</a>
+      </li>
+    </ul>
+  </div>
+
+  <div id="container" style="height: 600px; padding: 10px;"></div>
+
+  <script type="text/javascript" src="../基于BOSS直聘的岗位大数据分析系统 数据可视化 (2)/js/echarts.js"></script>
+
+  <style>
+    /* 添加背景图样式 */
+    body { 
+      font-family: Arial, sans-serif; 
+      padding: 20px; 
+      background-image: url("../基于BOSS直聘的岗位大数据分析系统 数据可视化 (2)/images/bgi.png"); /* 替换为你的图片路径 */
+      background-size: cover; /* 确保背景图覆盖整个页面 */
+      background-position: center; /* 让背景图居中显示 */
+      background-repeat: no-repeat; /* 背景图不重复 */
+    }
+
+    #container { 
+      background-color: rgba(255, 255, 255, 0.3); /* 为图表区域添加半透明白色背景 */
+      border-radius: 8px;
+    }
+
+    .input-container { 
+      margin-bottom: 20px; 
+      background-color: rgba(255, 255, 255, 0.8); /* 输入框区域的背景色 */
+      padding: 15px;
+      border-radius: 8px;
+    }
+
+    label { 
+      margin-right: 10px; 
+    }
+  </style>
+
+  <script type="text/javascript">
+    var dom = document.getElementById('container');
+    var myChart = echarts.init(dom, null, {
+      renderer: 'canvas',
+      useDirtyRect: false
+    });
+
+    // 初始页面的柱状图配置
+    var option = {
+      tooltip: {
+        trigger: 'axis',
+        axisPointer: {
+          type: 'shadow'
+        }
+      },
+      xAxis: {
+        data: ['客服专员', '新媒体运营', '客服', '电商客服', '销售', '运营助理', '小红书运营', '电商客服专员', '金融产品经理', '销售专员'],
+        axisLabel: {
+          color: '#fffffb' // 设置 x 轴数据颜色为红色
+        }
+      },
+      yAxis: {
+        axisLabel: {
+          color: '#fffffb' // 设置 y 轴数据颜色为红色
+        }
+      },
+      animationDurationUpdate: 500,
+      series: [
+        {
+          type: 'bar',
+          id: 'sales',
+          data: [
+            {
+              value: 132000,
+              groupId: '客服专员'
+            },
+            {
+              value: 79900,
+              groupId: '新媒体运营'
+            },
+            {
+              value: 69000,
+              groupId: '客服'
+            },
+            {
+              value: 58800,
+              groupId: '电商客服'
+            },
+            {
+              value: 38600,
+              groupId: '销售'
+            },
+            {
+              value: 28200,
+              groupId: '运营助理'
+            },
+            {
+              value: 26200,
+              groupId: '小红书运营'
+            },
+            {
+              value: 20700,
+              groupId: '电商客服专员'
+            },
+            {
+              value: 19000,
+              groupId: '金融产品经理'
+            },
+            {
+              value: 17100,
+              groupId: '销售专员'
+            },
+          ],
+          universalTransition: {
+            enabled: true,
+            divideShape: 'clone'
+          }
+        },
+        {
+          type: 'line',
+          id: 'trend',
+          data: [] // 空数据，确保折线图不显示
+        }
+      ]
+    };
+
+    // 每个柱状图的折线图数据
+    const drilldownData = {
+      '客服专员': [5000, 6000, 4000, 5000, 6000],
+      '新媒体运营': [3000, 3500, 5000, 4800, 3000],
+      '客服': [3000, 3500, 2500, 4500, 3500],
+      '电商客服': [25500, 36000, 34000, 35000, 36600],
+      '销售': [23000, 23500, 35000, 24800, 23000],
+      '运营助理': [13000, 12000, 36000, 24500, 13500],
+      '小红书运营': [5000, 6000, 4000, 5000, 6000],
+      '电商客服专员': [13500, 13500, 25000, 24800, 13000],
+      '金融产品经理': [23000, 22000, 36000, 24500, 33500],
+      '销售专员': [33000, 32000, 36000, 24500, 23500]
+    };
+
+    // 第二个页面的柱状图数据
+    const drilldownBarData = {
+      '客服专员': [13000, 12000, 11000, 11500, 12500],
+      '新媒体运营': [8000, 7500, 8200, 7800, 8500],
+      '客服': [7000, 6500, 6900, 7100, 6700],
+      '电商客服': [50000, 60000, 40000, 50000, 60000],
+      '销售': [30000, 35000, 50000, 48000, 30000],
+      '运营助理': [30000, 20000, 60000, 45000, 35000],
+      '小红书运营': [35000, 46000, 45000, 38000, 40900],
+      '电商客服专员': [23000, 35000, 45000, 46000, 30000],
+      '金融产品经理': [40000, 45700, 60000, 45000, 55000],
+      '销售专员': [50000, 45000, 60000, 45500, 55000]
+    };
+
+    // 点击柱状图时进行钻取
+    myChart.on('click', function (event) {
+      if (event.data) {
+        var groupId = event.data.groupId;
+        var lineData = drilldownData[groupId];  // 获取对应的折线图数据
+        var barData = drilldownBarData[groupId];  // 获取对应的柱状图数据
+
+        myChart.setOption({
+          xAxis: {
+            data: ['2020', '2021', '2022', '2023', '2024']  // X轴数据为年份
+          },
+          series: [
+            {
+              type: 'bar',
+              id: 'sales',
+              name: "投简历人数",
+              dataGroupId: groupId,
+              data: barData.map(function (value) {
+                return { value: value, itemStyle: { color: '#3398DB' } };
+              }),
+              universalTransition: {
+                enabled: true,
+                divideShape: 'clone'
+              }
+            },
+            {
+              type: 'line',
+              id: 'trend',
+              name: "实际应聘人数",
+              data: lineData.map(function (value) {
+                return { value: value };
+              }),
+              smooth: true,
+              lineStyle: {
+                color: '#FF5722',
+                width: 2
+              },
+              symbol: 'circle',
+              symbolSize: 8
+            }
+          ],
+          graphic: [
+            {
+              type: 'text',
+              left: 50,
+              top: 20,
+              style: {
+                text: 'Back',
+                fontSize: 18
+              },
+              onclick: function () {
+                // 返回时重置图表为初始配置，只显示柱状图
+                myChart.setOption(option);  // 重置为初始配置
+              }
+            }
+          ]
+        });
+      }
+    });
+
+    // 初始化图表
+    if (option && typeof option === 'object') {
+      myChart.setOption(option);  // 初始显示柱状图
+    }
+
+    window.addEventListener('resize', myChart.resize);
+  </script>
+</body>
+</html>
+
+
+

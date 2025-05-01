@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>薪资搜索与工作推荐</title>
+  <script src="../基于BOSS直聘的岗位大数据分析系统 数据可视化 (2)/js(1)/echarts.js"></script>
+  
+  <div style=" padding: 5px; text-align: center;">
+    <ul style="list-style-type: none; padding: 0;">
+        <li style="display: inline; margin: 0 15px;">
+            <a href="../基于BOSS直聘的岗位大数据分析系统 数据可视化 (2)/企业实训柱状图下钻.html" style="color: white; text-decoration: none; font-size: 18px;">热门工作招聘分析</a>
+        </li>
+        <li style="display: inline; margin: 0 15px;">
+            <a href="../基于BOSS直聘的岗位大数据分析系统 数据可视化 (2)/boss直聘可视化.html" style="color: white; text-decoration: none; font-size: 18px;">主页面</a>
+        </li>
+        <li style="display: inline; margin: 0 15px;">
+          <a href="../基于BOSS直聘的岗位大数据分析系统 数据可视化 (2)/不同职位招聘人数词云图.html" style="color: white; text-decoration: none; font-size: 18px;">不同职位招聘人数</a>
+      </li>
+    </ul>
+  </div>
+
+  <style>
+
+    
+    /* 添加背景图样式 */
+    body { 
+      font-family: Arial, sans-serif; 
+      padding: 20px; 
+      background-image: url("../基于BOSS直聘的岗位大数据分析系统 数据可视化 (2)/images/bgi.png"); /* 替换为你的图片路径 */
+      background-size: cover; /* 确保背景图覆盖整个页面 */
+      background-position: center; /* 让背景图居中显示 */
+      background-repeat: no-repeat; /* 背景图不重复 */
+    }
+
+    #container { 
+      height: 400px; 
+      background-color: rgba(255, 255, 255, 0.3); /* 为图表区域添加半透明白色背景 */
+      padding: 20px;
+      border-radius: 8px;
+    }
+
+    .input-container { 
+      margin-bottom: 20px; 
+      background-color: rgba(255, 255, 255, 0.3); /* 输入框区域的背景色 */
+      padding: 15px;
+      border-radius: 8px;
+    }
+
+    label { 
+      margin-right: 10px; 
+    }
+
+  </style>
+</head>
+<body>
+  <div class="input-container">
+    <label for="min-salary">最低薪资：</label>
+    <input type="number" id="min-salary" placeholder="请输入最低薪资" value="5000">
+    <label for="max-salary">最高薪资：</label>
+    <input type="number" id="max-salary" placeholder="请输入最高薪资" value="15000">
+    <button onclick="filterJobs()">搜索</button>
+  </div>
+
+  <div id="container"></div>
+
+  <script type="text/javascript">
+    var jobsData = [
+    { job: '教育类数字化项目经理', salary: 25000 },
+      { job: '项目主管-素质教育类产品', salary: 12000 },
+      { job: '短视频编导', salary: 11000},
+      { job: '服务端开发工程师', salary: 65000},
+      { job: '教育咨询老师', salary: 3000},
+      { job: '教育心理学老师', salary: 5000},
+      { job: '国际教育项目助理', salary: 2000},
+      { job: '俄语国家教育项目专员', salary: 8000},
+      { job: '高级营养师', salary: 6000},
+      { job: 'Java工程师	', salary: 7000},
+      { job: '电源工程师', salary: 4000},
+      { job: '高级珠宝顾问', salary: 7500},
+      { job: 'AI高级前端', salary: 3000},
+      { job: 'maya动画师', salary: 6500},
+      { job: '制造业务工程师', salary:4700 },
+      { job: 'C++高级开发工程师', salary: 20000},
+      { job: 'php高级开发工程师', salary: 7500},
+      { job: '高级健康管理师', salary:4000},
+      { job: '销售顾问', salary: 5600},
+      { job: '外贸销售员', salary: 7000},
+      { job: '金融风险分析师', salary:6000 },
+      { job: '大数据平台开发师', salary:8500 },
+      { job: '大数据架构师', salary:21000 },
+      { job: '大数据工程师', salary: 16000},
+      { job: '半导体设备销售员', salary: 9000},
+      { job: '全屋定制销售员', salary: 8000},
+      { job: '互联网AI短视频作业员', salary:3000 },
+      { job: '供应链金融产品管理员', salary:20000 },
+      { job: '法务专员', salary: 5500},
+      { job: '软件开发工程师（后端）', salary:7000 },
+      { job: '应用运维作业员', salary: 4300},
+      { job: '小学教师', salary: 2600},
+      { job: '食品经营管理员', salary: 3000}
+    ];
+
+    var myChart = echarts.init(document.getElementById('container'));
+
+    // 初始图表配置
+    var option = {
+      title: {
+        text: '薪资分布和推荐工作',
+        subtext: '根据薪资范围筛选',
+        left: 'center'
+      },
+      tooltip: {},
+      xAxis: {
+    type: 'category',
+    axisLabel: {
+      textStyle: {
+        color: "#333",  // 深色字体
+        fontSize: 10
+      },
+          interval: 0, // 确保每个标签都显示
+          rotate: 25,  // 如果标签过长，可以考虑旋转标签
+        },
+        data: []
+      },
+      yAxis: {
+        type: 'value'
+      },
+      series: [{
+        type: 'bar',
+        data: [],
+        itemStyle: {
+          color: '#7bbfea'
+        }
+      }],
+    };
+
+    // 设置初始图表
+    myChart.setOption(option);
+
+    // 搜索薪资范围并更新图表
+    function filterJobs() {
+      var minSalary = parseInt(document.getElementById('min-salary').value);
+      var maxSalary = parseInt(document.getElementById('max-salary').value);
+
+      // 过滤符合薪资范围的工作
+      var filteredJobs = jobsData.filter(function(job) {
+        return job.salary >= minSalary && job.salary <= maxSalary;
+      });
+
+      // 提取工作名称和薪资数据
+      var jobNames = filteredJobs.map(function(job) { return job.job; });
+      var jobSalaries = filteredJobs.map(function(job) { return job.salary; });
+
+      // 更新图表的数据
+      myChart.setOption({
+        xAxis: {
+          data: jobNames
+        },
+        series: [{
+          data: jobSalaries
+        }],
+      });
+    }
+
+    // 初始显示符合薪资范围的工作（例如，默认显示5000-15000范围内的工作）
+    filterJobs();
+    myChart.on('click',function(params){
+            var yt = alert("鼠标单击事件，您刚才单击了:"+params.name);
+            window.open('https://www.baidu.com/s?wd=' + encodeURIComponent(params.name));
+            window.addEventListener("resize",function(){
+                myChart.resize();
+            })
+        })
+  </script>
+</body>
+</html>
+

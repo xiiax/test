@@ -1,0 +1,3082 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="js/echarts.js"></script>
+    <script src="js/chongqing.js"></script>
+    <script src="js/guizhou.js"></script>
+    <script src="js/chain.js"></script>
+    <link rel="stylesheet" href="css/index.css">
+</head>
+<!--    页面头部-->
+<div style=" padding: 10px; text-align: center;">
+    <ul style="list-style-type: none; padding: 0;">
+        <li style="display: inline; margin: 0 15px;">
+            <a href="../基于BOSS直聘的岗位大数据分析系统 数据可视化 (2)/薪资搜索与工作推荐.html" style="color: white; text-decoration: none; font-size: 18px;">薪资搜索与工作推荐</a>
+        </li>
+        <li style="display: inline; margin: 0 15px;">
+            <a href="../基于BOSS直聘的岗位大数据分析系统 数据可视化 (2)/不同职位招聘人数词云图.html" style="color: white; text-decoration: none; font-size: 18px;">不同职位招聘人数</a>
+        </li>
+        <li style="display: inline; margin: 0 15px;">
+            <a href="../基于BOSS直聘的岗位大数据分析系统 数据可视化 (2)/企业实训柱状图下钻.html" style="color: white; text-decoration: none; font-size: 18px;">热门工作招聘分析</a>
+        </li>
+    </ul>
+</div>
+
+<body>
+<!--    页面头部-->
+    <header>
+        <h1>毕业生就业数据分析平台</h1>
+        <div class="showTime"></div>
+        <script>
+            var t=null;
+            t=setTimeout(time,1000);
+            function time(){
+                clearTimeout(t)//清除定时器
+                dt=new Date();
+                var y=dt.getFullYear();
+                var mt=dt.getMonth()+1;
+                var day=dt.getDate();
+                var h=dt.getHours();
+                var m=dt.getMinutes();
+                var s=dt.getSeconds();
+                document.querySelector(".showTime").innerHTML=
+                    "当前时间:"+
+                    y+
+                    "年"+
+                    mt+
+                    "月"+
+                    day+
+                    "日"+
+                    h+
+                    "时"+
+                    m+
+                    "分"+
+                    s+
+                    "秒"
+                t=setTimeout(time,1000)//设定定时器，循环运行
+            }
+        </script>
+    </header>
+<!--页面主体-->
+    <div class="mainbox">
+        <div class="column">
+            <div class="box">
+                <div class="expense_distributiob">
+                    <h5>不同地区各大类的平均薪资</h5>
+                    <div class="chart"></div>
+                    <div class="text">
+                        <div>
+                        <span>客服平均薪资</span>
+                        <span>约为7.6</span>
+                        <span>k</span></div>
+                        <div>
+                        <span>互联网平均薪资</span>
+                        <span>约为14.34</span>
+                        <span>k</span></div>
+                        <div>
+                        <span>金融平均薪资</span>
+                        <span>约为11.43</span>
+                        <span>k</span></div>
+                        <div>
+                        <span>教育平均薪资</span>
+                        <span>约为4.73</span>
+                        <span>k</span></div>
+                    </div>
+                </div>
+            </div>
+            <div class="box">
+                <div class="comment">
+                    <h5>福利待遇满意程度</h5>
+                    <div class="chart"></div>
+                    <div class="text">
+                        <div>
+                            <img src="../基于BOSS直聘的岗位大数据分析系统 数据可视化 (2)/images/comment.png">
+                            <span>996,工作压力大</span>
+                        </div>
+                        <div>
+                            <img src="../基于BOSS直聘的岗位大数据分析系统 数据可视化 (2)/images/comment.png">
+                            <span>加班频繁，加班费用低，休息时间不足</span>
+                        </div>
+                        <div>
+                            <img src="../基于BOSS直聘的岗位大数据分析系统 数据可视化 (2)/images/comment.png">
+                            <span>出差频率高，应酬频繁</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="box">
+                <div class="ticketing">
+                    <h5>近期各类岗位需求量</h5>
+                    <div class="chart"></div>
+                </div>
+            </div>
+            <div class="box">
+                <div class="passenger_origin">
+                    <h5>各地区职业需求量</h5>
+                    <div class="chart"></div>
+                    <div class="chart7"></div>
+                </div>
+            </div>
+        </div>
+        <div class="column">
+            <div class="box2">
+                <div class="passenger_volume">
+                    <h5>各地区就业数据</h5>
+                    <div class="chart1"></div>
+                </div>
+            </div>
+            <div class="box3">
+                <div class="traffic_flow">
+                    <h5>工作学历要求</h5>
+                    <div class="chart2"></div>
+                </div>
+            </div>
+        </div>
+        <div class="column">
+            <div class="box4">
+                <div class="expense_stratum">
+                    <h5>各行业薪资人数占比图</h5>
+                    <div class="chart3">
+                        <div class="text1">各个行业</div>
+                        <div class="chart3_1"></div>
+                        <div class="chart3_2"></div>
+                        <div class="text2">薪资占比</div>
+                        <div class="chart3_3"></div>
+                        <div class="chart3_4"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="box5">
+                <div class="person_team">
+                    <h5>就业率</h5>
+                    <div class="chart4"></div>
+                </div>
+            </div>
+            <div class="box">
+                <div class="tourist_contrast">
+                    <h5>就业稳定程度分析</h5>
+                    <div class="chart5"></div>
+                </div>
+            </div>
+            <div class="box">
+                <div class="tourist_numbers">
+                    <h5>工作经验</h5>
+                    <div class="chart6"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+<script>
+   
+    (function (){
+        echarts.registerMap('chain',{geoJSON:chain});
+        var myEcharts=echarts.init(document.querySelector('.passenger_origin .chart'));
+        var planePath = 'path://M1705.06,1318.313v-89.254l-319.9-221.799l0.073-208.063c0.521-84.662-26.629-121.796-63.961-121.491c-37.332-0.305-64.482,36.829-63.961,121.491l0.073,208.063l-319.9,221.799v89.254l330.343-157.288l12.238,241.308l-134.449,92.931l0.531,42.034l175.125-42.917l175.125,42.917l0.531-42.034l-134.449-92.931l12.238-241.308L1705.06,1318.313z';
+        var option={
+            geo:{
+                type:'map',
+                map:'chain',
+                //    是否允许缩放,拖拽
+                roam:false,
+                label:{
+                    show:false,
+                },
+                zoom:2.0,
+                top:70,
+                left:180,
+
+            },
+            itemStyle: {
+                areaColor:'rgba(99,194,255,0.3)'
+            },
+            series:[
+                {
+                    type:  'effectScatter',
+                    data:[
+                        {name:'江苏',value:[118.767413,32.041544],itemStyle:{color:'#787AF1'}},
+                        {name:'山西',value:[112.549248,37.857014],itemStyle:{color:'#787AF1'}},
+                        {name:'吉林',value:[126.171208,43.703954],itemStyle:{color:'#787AF1'}},
+                        {name:'四川',value:[102.693453,30.674545],itemStyle:{color:'#787AF1'}},
+                        {name:'云南',value:[102.712251,25.040609],itemStyle:{color:'#787AF1'}},
+                        {name:'广东',value:[113.429919,23.334643],itemStyle:{color:'#787AF1'}},
+                        {name:'湖南',value:[112.982279,28.19409],itemStyle:{color:'#787AF1'}},
+                        {name:'宁夏',value:[106.278179,38.46637],itemStyle:{color:'#787AF1'}},
+                        {name:'浙江',value:[120.153576,30.287459],itemStyle:{color:'#787AF1'}},
+                        {name:'重庆',value:[106.504962,29.533155],itemStyle:{color:'red'}},
+                    ],
+                    coordinateSystem:'geo',
+                    geoIndex:0,
+                    symbolSize:3,
+                    //涟漪特效相关配置
+                    rippleEffect: {
+                    //    动画周期
+                        period:2,
+                        //动画中波纹的最大缩放比例
+                        scale:4,
+                    //    波纹方式，‘strike’'fill'
+                        brushType:'fill',
+                    }
+                },
+                {
+                    type:'lines',
+                    data:[
+                        {coords:[[120.153576,30.287459],[106.504962,29.533155]]},
+                        {coords:[[106.278179,38.46637],[106.504962,29.533155]]},
+                        {coords:[[112.982279,28.19409],[106.504962,29.533155]]},
+                        {coords:[[113.429919,23.334643],[106.504962,29.533155]]},
+                        {coords:[[102.712251,25.040609],[106.504962,29.533155]]},
+                        {coords:[[102.693453,30.674545],[106.504962,29.533155]]},
+                        {coords:[[126.171208,43.703954],[106.504962,29.533155]]},
+                        {coords:[[112.549248,37.857014],[106.504962,29.533155]]},
+                        {coords:[[118.767413,32.041544],[106.713478,26.578343]]},
+                    ],
+                    zlevel:2,
+                    symbol:['none','arrow'],//标记图形，线头无效果，线尾箭头效果
+                    symbolSize: 5,
+                    //线特效图标样式配置
+                    effect:{
+                      show:true,
+                      period:3,
+                      trailLength: 0,//特效尾迹长度，取值【0,1】，值越大尾迹越重
+                      symbol:planePath,
+                      symbolSize:10
+                    },
+                    //设置线条样式
+                    lineStyle:{
+                        normal:{
+                            color:'#787AF1',
+                            width:1.2,
+                            opacity:0.6,//尾迹线条透明度
+                            curveness:0.2//尾迹线条曲直度
+                        }
+                    }
+                }
+            ]
+        }
+        myEcharts.setOption(option)
+    })();
+    (function (){
+        var myEchart = echarts.init(document.querySelector('.passenger_origin .chart7'));
+        var color = ['#8585DF', '#3345D1', '#D5AF66', '#8585DF', '#3345D1', '#D5AF66', '#8585DF', '#3345D1', '#D5AF66', '#8585DF'];
+        var data = [6539, 2045, 2658, 3051, 5994, 4358, 3997, 3904, 2351, 2546];
+        var yAxisData = ['重庆', '江苏', '山西', '吉林', '四川', '云南', '广东', '湖南', '宁夏', '浙江'];
+        var startValue = 0;
+        var endValue = 4;
+        let intervalId;
+
+        function update() {
+            intervalId = setInterval(() => {
+                startValue++;
+                endValue++;
+                if (endValue > data.length - 1) {
+                    startValue = 0;
+                    endValue = 4;
+                }
+                myEchart.setOption({
+                    dataZoom: [{
+                        startValue: startValue,
+                        endValue: endValue,
+                    }]
+                });
+            }, 2000);
+        }
+
+        var option = {
+            grid: [{
+                left: '20%',
+                top: '10%',
+                right: '20%',
+                bottom: '0%',
+            }],
+            xAxis: {
+                show: false,
+                type: 'value',
+                splitLine: { show: false },
+                axisTick: { show: false }
+            },
+            yAxis: {
+                show: true,
+                type: 'category',
+                data: yAxisData,
+                axisLine: { show: false },
+                axisTick: { show: false },
+                axisLabel: { textStyle: { fontSize: 14, color: '#FFF' } }
+            },
+            dataZoom: [{
+                type: 'slider', // Using slider for better user interaction
+                yAxisIndex: 0, // Correct index for single yAxis
+                show: false,
+                startValue: startValue,
+                endValue: endValue,
+            }],
+            series: [{
+                type: 'bar',
+                data: data,
+                itemStyle: {
+                    barBorderRadius: 20,
+                    // color: function (params) { return color[params.dataIndex]; }
+                    color:'#818DC7'
+                },
+                barCategoryGap: 45,
+                barWidth: 10,
+                barMinHeight: 20,
+                label: { show: true, position: 'outside', color: 'inherit', formatter: '{c}' }
+            }]
+        };
+
+        myEchart.setOption(option);
+        update();
+    })();
+
+    
+    (function (){
+        echarts.registerMap('chain',{geoJSON:chain});
+        var myEcharts=echarts.init(document.querySelector('.passenger_volume .chart1'));
+        myEcharts.on('click', function (params) {
+            if (params.componentType === 'series' && params.seriesType === 'effectScatter') {
+                var clickedName = params.data.name;
+                updateLineChart1(clickedName);
+                updateLineChart2(clickedName);
+                updateLineChart3(clickedName);
+                updateLineChart4(clickedName);
+                updateLineChart5(clickedName);
+                updateLineChart6(clickedName);
+            }
+        });
+        var option={
+            geo:{
+                type:'map',
+                map:'chain',
+                //    是否允许缩放,拖拽
+                roam:false,
+                label:{
+                    show:true,
+                    position:'inside',
+                    //orient: 'vertical',  //设置垂直排列 默认横向horizontal
+                },
+            },
+            visualMap:{
+                min:3000,
+                max:15000,
+                show:false,
+                color:['red','#00fff','#30E6C0'],
+            },
+            itemStyle: {
+                areaColor:'#00ffff'
+            },
+            tooltip: {
+                show: true,
+                //鼠标点击时触发
+                triggerOn:"click",
+                //是否永远显示提示框内容
+                alwaysShowContent:true,
+                formatter: function(params) {
+                    return `${params.name}<br>热门城市：${params.data.value[2]}`;
+                },
+                backgroundColor: 'rgba(255, 255, 255, 0.8)',
+                borderColor: '#333',
+                borderWidth: 1,
+                textStyle: {
+                    color: '#333',
+                    fontSize: 14
+                }
+            },
+            series: [
+    {
+        type: 'effectScatter',
+        data: [
+            { name: '长沙', value: [112.982279, 28.19409], symbolSize: 19, itemStyle: { color: '#FFD700' } }, // 长沙，番茄红
+            { name: '北京', value: [116.405285, 39.904989], symbolSize: 15, itemStyle: { color: '#FFD700' } }, // 北京，金色
+            { name: '上海', value: [121.472644, 31.231706], symbolSize: 12, itemStyle: { color: '#FFD700'} }, // 上海，天蓝色
+            { name: '重庆', value: [106.504962, 29.533155], symbolSize: 12, selected: true, itemStyle: { color: '#FFD700'} }, // 重庆，森林绿
+            { name: '西安', value: [108.948024, 34.263161], symbolSize: 14, itemStyle: { color: '#FFD700' } }, // 西安，蓝紫色
+            { name: '苏州', value: [118.767413, 32.041544], symbolSize: 12, itemStyle: { color: '#FFD700'} } // 苏州，橙红色
+        ],
+        coordinateSystem: 'geo',
+        geoIndex: 0
+    }
+]
+        };
+        console.log(chain);
+        myEcharts.setOption(option)
+       
+        updateLineChart1('重庆');
+        function updateLineChart1(name){
+            var myCharts = echarts.init(document.querySelector('.expense_distributiob .chart'));
+            var linechart1option = {
+                tooltip: {
+                    trigger: 'item',
+                    //提示框的数据样式显示
+                    formatter: '{b} : {c} ({d}%)'
+                },
+                toolbox: {
+                    show: false, //是否显示工具栏组
+                },
+                series: []
+            };
+            switch (name){
+                case '北京':
+                    linechart1option.series=[
+                        {
+                            name: '',
+                            left:'1%',
+                            type: 'pie', //饼图
+                            radius: [25, 55], //修改图表大小,内半径，外半径
+                            //图表x轴，y轴位置
+                            center: ['30%', '60%'],
+                            roseType: 'radius',
+                            itemStyle : {
+                                normal:{
+                                    label:{
+                                        show: true,
+                                        //手动继承颜色
+                                        color: 'inherit'
+                                    },
+                                    labelLine:{
+                                        show:true,
+                                    }
+                                },
+                                borderRadius: 0
+                            },
+                            color: ['#3B42EB','#15D1EA','#7C80EB','#3B71B9','#F7AD4A'],
+                            data: [
+                                {value:1790,name:'教育'},
+                                {value:400,name:'销售'},
+                                {value:334,name:'客服'},
+                                {value:2234,name:'互联网'},
+                                {value:1234,name:'大数据'},
+                                {value:254,name:'高级管理'},
+                                {value:1290,name:'运营'},
+                                {value:2570,name:'金融'},
+                            ]
+                        }
+                    ];
+                    break;
+                case '上海':
+                    linechart1option.series=[
+                        {
+                            name: '',
+                            type: 'pie', //饼图
+                            left:'1%',
+                            radius: [25, 55], //修改图表大小,内半径，外半径
+                            //图表x轴，y轴位置
+                            center: ['30%', '60%'],
+                            roseType: 'radius',
+                            itemStyle : {
+                                normal:{
+                                    label:{
+                                        show: true,
+                                        //手动继承颜色
+                                        color: 'inherit'
+                                    },
+                                    labelLine:{
+                                        show:true,
+                                    }
+                                },
+                                borderRadius: 0
+                            },
+                            color: ['#3B42EB','#15D1EA','#7C80EB','#3B71B9','#F7AD4A'],
+                            data: [
+                            {value:1290,name:'教育'},
+                                {value:1780,name:'销售'},
+                                {value:445,name:'客服'},
+                                {value:2245,name:'互联网'},
+                                {value:1634,name:'大数据'},
+                                {value:354,name:'高级管理'},
+                                {value:1200,name:'运营'},
+                                {value:890,name:'金融'},
+                            ]
+                        }
+                    ];
+                    break;
+                case '重庆':
+                    linechart1option.series=[
+                        {
+                            name: '',
+                            type: 'pie', //饼图
+                            left:'1%',
+                            radius: [25, 55], //修改图表大小,内半径，外半径
+                            //图表x轴，y轴位置
+                            center: ['30%', '60%'],
+                            roseType: 'radius',
+                            itemStyle : {
+                                normal:{
+                                    label:{
+                                        show: true,
+                                        //手动继承颜色
+                                        color: 'inherit'
+                                    },
+                                    labelLine:{
+                                        show:true,
+                                    }
+                                },
+                                borderRadius: 0
+                            },
+                            color: ['#3B42EB','#15D1EA','#7C80EB','#3B71B9','#F7AD4A'],
+                            data: [
+                            {value:600,name:'教育'},
+                                {value:1780,name:'销售'},
+                                {value:475,name:'客服'},
+                                {value:1340,name:'互联网'},
+                                {value:1589,name:'大数据'},
+                                {value:240,name:'高级管理'},
+                                {value:1530,name:'运营'},
+                                {value:1190,name:'金融'},
+                            
+                            ]
+                        }
+                    ];
+                    break;
+                case '长沙':
+                    linechart1option.series=[
+                        {
+                            name: '',
+                            type: 'pie', //饼图
+                            left:'1%',
+                            radius: [25, 55], //修改图表大小,内半径，外半径
+                            //图表x轴，y轴位置
+                            center: ['30%', '60%'],
+                            roseType: 'radius',
+                            itemStyle : {
+                                normal:{
+                                    label:{
+                                        show: true,
+                                        //手动继承颜色
+                                        color: 'inherit'
+                                    },
+                                    labelLine:{
+                                        show:true,
+                                    }
+                                },
+                                borderRadius: 0
+                            },
+                            color: ['#3B42EB','#15D1EA','#7C80EB','#3B71B9','#F7AD4A'],
+                            data: [
+                            {value:890,name:'教育'},
+                                {value:1780,name:'销售'},
+                                {value:333,name:'客服'},
+                                {value:1680,name:'互联网'},
+                                {value:1389,name:'大数据'},
+                                {value:140,name:'高级管理'},
+                                {value:2490,name:'运营'},
+                                {value:300,name:'金融'},
+                            ]
+                        }
+                    ];
+                    break;
+                case '陕西西安':
+                    linechart1option.series=[
+                        {
+                            name: '',
+                            type: 'pie', //饼图
+                            left:'1%',
+                            radius: [25, 55], //修改图表大小,内半径，外半径
+                            //图表x轴，y轴位置
+                            center: ['30%', '60%'],
+                            roseType: 'radius',
+                            itemStyle : {
+                                normal:{
+                                    label:{
+                                        show: true,
+                                        //手动继承颜色
+                                        color: 'inherit'
+                                    },
+                                    labelLine:{
+                                        show:true,
+                                    }
+                                },
+                                borderRadius: 0
+                            },
+                            color: ['#3B42EB','#15D1EA','#7C80EB','#3B71B9','#F7AD4A'],
+                            data: [
+                            {value:600,name:'教育'},
+                                {value:1780,name:'销售'},
+                                {value:333,name:'客服'},
+                                {value:1230,name:'互联网'},
+                                {value:1119,name:'大数据'},
+                                {value:600,name:'高级管理'},
+                                {value:2790,name:'运营'},
+                                {value:490,name:'金融'},
+                            ]
+                        }
+                    ];
+                    break;
+                default :
+                    linechart1option.series=[
+                        {
+                            name: '',
+                            type: 'pie', //饼图
+                            left:'1%',
+                            radius: [25, 55], //修改图表大小,内半径，外半径
+                            //图表x轴，y轴位置
+                            center: ['30%', '60%'],
+                            roseType: 'radius',
+                            itemStyle : {
+                                normal:{
+                                    label:{
+                                        show: true,
+                                        //手动继承颜色
+                                        color: 'inherit'
+                                    },
+                                    labelLine:{
+                                        show:true,
+                                    }
+                                },
+                                borderRadius: 0
+                            },
+                            color: ['#3B42EB','#15D1EA','#7C80EB','#3B71B9','#F7AD4A'],
+                            data: [
+                            {value:2400,name:'教育'},
+                                {value:1780,name:'销售'},
+                                {value:283,name:'客服'},
+                                {value:1230,name:'互联网'},
+                                {value:456,name:'大数据'},
+                                {value:468,name:'高级管理'},
+                                {value:1920,name:'运营'},
+                                {value:490,name:'金融'},
+                            ]
+                        }
+                    ];
+                    break;
+            }
+            myCharts.setOption(linechart1option);
+        }
+       
+       updateLineChart2('重庆');
+        function updateLineChart2(name){
+            var myCharts = echarts.init(document.querySelector('.comment .chart'));
+            var linechart2option = {
+                series:[]
+            };
+            switch (name){
+                case '北京':
+                    linechart2option.series=[
+                        {
+                            type:'pie',
+                            radius: [30,60],
+                            //图表x轴，y轴位置
+                            center: ['80%', '50%'],
+                            selectedMode:'single',
+                            data: [
+                                {value:82,name:'正面'},
+                                {value: 18,name:'负面',selected:true}
+                            ],
+                            label:{
+                                show:false,
+                                //    标签位置，在饼图中心位置
+                                position:'center',
+                                formatter: '{d}%\n{b}',
+                                color: 'inherit',
+                                textStyle: {
+                                    fontSize:14
+                                },
+                            },
+                            select:{
+                                label:{
+                                    show:true
+                                }
+                            },
+                            //    标签线
+                            labelLine: {
+                                //隐藏
+                                show:false
+                            },
+
+                        },
+                        {
+                            //    中间圆环
+                            type:'pie',
+                            name:'中心圆',
+                            radius: '25',
+                            center: ['80%', '50%'],
+                            animation:false,
+                            hoverAnimation:false,
+                            itemStyle:{
+                                color:'rgba(121,134,203,0.2)',
+                            },
+                            data: [1]
+                        }
+                    ];
+                    break;
+                case '上海':
+                    linechart2option.series=[
+                        {
+                            type:'pie',
+                            radius: [30,60],
+                            //图表x轴，y轴位置
+                            center: ['80%', '50%'],
+                            selectedMode:'single',
+                            data: [
+                                {value:65,name:'正面'},
+                                {value: 35,name:'负面',selected:true}
+                            ],
+                            label:{
+                                show:false,
+                                //    标签位置，在饼图中心位置
+                                position:'center',
+                                formatter: '{d}%\n{b}',
+                                color: 'inherit',
+                            },
+                            select:{
+                                label:{
+                                    show:true
+                                }
+                            },
+                            //    标签线
+                            labelLine: {
+                                //隐藏
+                                show:false
+                            },
+
+                        },
+                        {
+                            //    中间圆环
+                            type:'pie',
+                            name:'中心圆',
+                            radius: '25',
+                            center: ['80%', '50%'],
+                            animation:false,
+                            hoverAnimation:false,
+                            itemStyle:{
+                                color:'rgba(121,134,203,0.2)',
+                            },
+                            data: [1]
+                        }
+                    ];
+                    break;
+                case '重庆':
+                    linechart2option.series=[
+                        {
+                            type:'pie',
+                            radius: [30,60],
+                            //图表x轴，y轴位置
+                            center: ['80%', '50%'],
+                            selectedMode:'single',
+                            data: [
+                                {value:88,name:'正面'},
+                                {value: 18,name:'负面',selected:true}
+                            ],
+                            label:{
+                                show:false,
+                                //    标签位置，在饼图中心位置
+                                position:'center',
+                                formatter: '{d}%\n{b}',
+                                color: 'inherit',
+                            },
+                            select:{
+                                label:{
+                                    show:true
+                                }
+                            },
+                            //    标签线
+                            labelLine: {
+                                //隐藏
+                                show:false
+                            },
+
+                        },
+                        {
+                            //    中间圆环
+                            type:'pie',
+                            name:'中心圆',
+                            radius: '25',
+                            center: ['80%', '50%'],
+                            animation:false,
+                            hoverAnimation:false,
+                            itemStyle:{
+                                color:'rgba(121,134,203,0.2)',
+                            },
+                            data: [1]
+                        }
+                    ];
+                    break;
+                case '长沙':
+                    linechart2option.series=[
+                        {
+                            type:'pie',
+                            radius: [30,60],
+                            //图表x轴，y轴位置
+                            center: ['80%', '50%'],
+                            selectedMode:'single',
+                            data: [
+                                {value:70,name:'正面'},
+                                {value: 30,name:'负面',selected:true}
+                            ],
+                            label:{
+                                show:false,
+                                //    标签位置，在饼图中心位置
+                                position:'center',
+                                formatter: '{d}%\n{b}',
+                                color: 'inherit',
+                            },
+                            select:{
+                                label:{
+                                    show:true
+                                }
+                            },
+                            //    标签线
+                            labelLine: {
+                                //隐藏
+                                show:false
+                            },
+
+                        },
+                        {
+                            //    中间圆环
+                            type:'pie',
+                            name:'中心圆',
+                            radius: '25',
+                            center: ['80%', '50%'],
+                            animation:false,
+                            hoverAnimation:false,
+                            itemStyle:{
+                                color:'rgba(121,134,203,0.2)',
+                            },
+                            data: [1]
+                        }
+                    ];
+                    break;
+                    case '苏州':
+                    linechart2option.series=[
+                        {
+                            type:'pie',
+                            radius: [30,60],
+                            //图表x轴，y轴位置
+                            center: ['80%', '50%'],
+                            selectedMode:'single',
+                            data: [
+                                {value:63,name:'正面'},
+                                {value: 17,name:'负面',selected:true}
+                            ],
+                            label:{
+                                show:false,
+                                //    标签位置，在饼图中心位置
+                                position:'center',
+                                formatter: '{d}%\n{b}',
+                                color: 'inherit',
+                            },
+                            select:{
+                                label:{
+                                    show:true
+                                }
+                            },
+                            //    标签线
+                            labelLine: {
+                                //隐藏
+                                show:false
+                            },
+                        },
+                        {
+                            //    中间圆环
+                            type:'pie',
+                            name:'中心圆',
+                            radius: '25',
+                            center: ['80%', '50%'],
+                            animation:false,
+                            hoverAnimation:false,
+                            itemStyle:{
+                                color:'rgba(121,134,203,0.2)',
+                            },
+                            data: [1]
+                        }
+                    ];
+                    break;
+                case '西安':
+                    linechart2option.series=[
+                        {
+                            type:'pie',
+                            radius: [30,60],
+                            //图表x轴，y轴位置
+                            center: ['80%', '50%'],
+                            selectedMode:'single',
+                            data: [
+                                {value:90,name:'正面'},
+                                {value: 10,name:'负面',selected:true}
+                            ],
+                            label:{
+                                show:false,
+                                //    标签位置，在饼图中心位置
+                                position:'center',
+                                formatter: '{d}%\n{b}',
+                                color: 'inherit',
+                            },
+                            select:{
+                                label:{
+                                    show:true
+                                }
+                            },
+                            //    标签线
+                            labelLine: {
+                                //隐藏
+                                show:false
+                            },
+
+                        },
+                        {
+                            //    中间圆环
+                            type:'pie',
+                            name:'中心圆',
+                            radius: '25',
+                            center: ['80%', '50%'],
+                            animation:false,
+                            hoverAnimation:false,
+                            itemStyle:{
+                                color:'rgba(121,134,203,0.2)',
+                            },
+                            data: [1]
+                        }
+                    ];
+                    break;
+                default :
+                    linechart2option.series=[
+                        {
+                            type:'pie',
+                            radius: [30,60],
+                            //图表x轴，y轴位置
+                            center: ['80%', '50%'],
+                            selectedMode:'single',
+                            data: [
+                                {value:80,name:'正面'},
+                                {value: 20,name:'负面',selected:true}
+                            ],
+                            label:{
+                                show:false,
+                                //    标签位置，在饼图中心位置
+                                position:'center',
+                                formatter: '{d}%\n{b}',
+                                color: 'inherit',
+                            },
+                            select:{
+                                label:{
+                                    show:true
+                                }
+                            },
+                            //    标签线
+                            labelLine: {
+                                //隐藏
+                                show:false
+                            },
+
+                        },
+                        {
+                            //    中间圆环
+                            type:'pie',
+                            name:'中心圆',
+                            radius: '25',
+                            center: ['80%', '50%'],
+                            animation:false,
+                            hoverAnimation:false,
+                            itemStyle:{
+                                color:'rgba(121,134,203,0.2)',
+                            },
+                            data: [1]
+                        }
+                    ];
+                    break;
+            }
+            myCharts.setOption(linechart2option);
+        }
+
+        
+        updateLineChart3('重庆');
+        function updateLineChart3(name){
+            var myCharts = echarts.init(document.querySelector('.ticketing .chart'));
+            var linechart3option = {
+                tooltip: {
+                    trigger:'axis',
+                    axisPointer:{
+                        type:'shadow'
+                    }
+                },
+                legend:{
+                    top: 15,
+                    itemHeight: 10,
+                    itemWidth: 15,
+                    // 修改icon图形大小
+                    itemGap: 15, // 修改间距
+                    textStyle: {
+                        fontSize: 12,
+                        color: "#fff",
+                    }},
+                grid:{
+                    left:'3%',
+                    right:'4%',
+                    bottom:'3%',
+                    containLabel: true
+                },
+                xAxis:[
+                    {
+                        splitLine:{
+                            show:false
+                        },
+                        // 不显示网格线
+                        axisTick:{
+                            show:false // 不显示坐标轴刻度线
+                        },
+                        type:'category',
+                        data:['6月','7月','8月','9月','10月','11月','12月']
+                    }
+                ],
+                yAxis:{
+                    splitLine:{
+                        show:false
+                    },
+                    axisLine: {
+                        show: true
+                    },
+                    type:'value'
+                },
+                series:[]
+            };
+            switch (name){
+                default :
+                    linechart3option.series=[
+                        {
+                            name:'销售',
+                            type:'bar',
+                            stack:'Ad',
+                            emphasis:{
+                                focus:'series'
+                            },
+                            data:[567,498,531,698,756,859,967]
+                        },
+                        {
+                            name:'大数据',
+                            type:'bar',
+                            emphasis:{
+                                focus:'series'
+                            },
+                            data:[855,890,875,960,871,983,906]
+                        },
+                        {
+                            name:'客服',
+                            type:'bar',
+                            stack:'Ad',
+                            emphasis:{
+                                focus:'series'
+                            },
+                            data:[528,551,746,530,564,432,594]
+                        },
+                        {
+                            name:'互联网',
+                            type:'bar',
+                            emphasis:{
+                                focus:'series'
+                            },
+                            data:[770,661,652,716,788,704,821]
+                        },
+                        {
+                            name:'金融',
+                            type:'bar',
+                            stack:'Ad',
+                            emphasis:{
+                                focus:'series'
+                            },
+                            data:[357,318,318,297,346,295,385]
+                        },
+                        {
+                            name:'高级管理',
+                            type:'bar',
+                            emphasis:{
+                                focus:'series'
+                            },
+                            data:[867,848,790,785,796,819,846],
+                        },
+                        {
+                            name:'教育',
+                            type:'bar',
+                            emphasis:{
+                                focus:'series'
+                            },
+                            data:[867,848,790,785,796,819,846],
+                        },{
+                            name:'运营',
+                            type:'bar',
+                            emphasis:{
+                                focus:'series'
+                            },
+                            data:[867,848,790,785,796,819,846],
+                        }
+                    ];
+                    break;
+            }
+            myCharts.setOption(linechart3option);
+        }
+
+        
+        updateLineChart4('重庆');
+        function updateLineChart4(name){
+            var myCharts = echarts.init(document.querySelector('.traffic_flow .chart2'));
+            var linechart4option = {
+                tooltip: {
+
+                    // formatter:'{b}\n\n {a}{c}/300',
+                    trigger: 'axis',
+                },
+                legend:{
+                    icon: "rect",
+                    top: 28,
+                    itemHeight: 10,
+                    itemWidth: 15,
+                    // 修改icon图形大小
+                    itemGap: 20, // 修改间距
+                    textStyle: {
+                        fontSize: 12,
+                        color: "#fff",
+                    }
+                },
+                grid: {
+        top: '30%',  // 调整图表的上边距，使图表向下移动
+        left: '3%',
+        right: '4%',
+        bottom: '3%',
+        containLabel: true  // 保证标签不被遮挡
+    },
+                xAxis: [
+                    {
+                        type: 'category',
+                        splitLine:{
+                            show:false
+                        },
+                        // 不显示网格线
+                        axisTick:{
+                            show:false // 不显示坐标轴刻度线
+                        },
+                        axisLabel:{
+                            interval:0 // 不显示坐标轴刻度线
+                        },
+                        data: ['初中及以下','中专/中技','高中', '大专', '本科', '硕士', '博士', '学历不限']
+                    }
+                ],
+                yAxis: [
+                    {
+                        type: 'value',
+                        splitLine:{
+                            show:false
+                        },
+                        // 不显示网格线
+                        axisTick:{
+                            show:false // 不显示坐标轴刻度线
+                        },
+                    }
+                ],
+                series: []
+            };
+            switch (name){
+                case '北京':
+                    linechart4option.series=[
+                        {
+                            name: '销售',
+                            type: 'line',
+                            areaStyle: {
+                                color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [
+                                    {
+                                        offset: 0,
+                                        color: 'rgba(23,22,115,0.7)'
+                                    },
+                                    {
+                                        offset: 1,
+                                        color: 'rgba(5,10,48,0.5)'
+                                    }
+                                ])
+                            },
+                            emphasis: {
+                                focus: 'series'
+                            },
+                            data: [10,70,100,650,240,6,8,430]
+                        },
+                        {
+                            name: '大数据',
+                            type: 'line',
+                            areaStyle: {
+                                color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [
+                                    {
+                                        offset: 0,
+                                        color: 'rgba(23,113,140,0.7)'
+                                    },
+                                    {
+                                        offset: 1,
+                                        color: 'rgba(5,10,48,0.5)'
+                                    }
+                                ])
+                            },
+                            emphasis: {
+                                focus: 'series'
+                            },
+                            data: [0,0,5,23,148,248,198,13]
+                        },
+                        {
+                            name: '客服',
+                            type: 'line',
+                            areaStyle: {
+                                color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [
+                                    {
+                                        offset: 0,
+                                        color: 'rgba(23,113,140,0.7)'
+                                    },
+                                    {
+                                        offset: 1,
+                                        color: 'rgba(5,10,48,0.5)'
+                                    }
+                                ])
+                            },
+                            emphasis: {
+                                focus: 'series'
+                            },
+                            data: [12,32,124,215,95,12,9,200]
+                        },
+                        {
+                            name: '互联网',
+                            type: 'line',
+                            areaStyle: {
+                                color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [
+                                    {
+                                        offset: 0,
+                                        color: 'rgba(23,113,140,0.7)'
+                                    },
+                                    {
+                                        offset: 1,
+                                        color: 'rgba(5,10,48,0.5)'
+                                    }
+                                ])
+                            },
+                            emphasis: {
+                                focus: 'series'
+                            },
+                            data: [12,35,46,89,157,264,214,15]
+                        },
+                        {
+                            name: '金融',
+                            type: 'line',
+                            areaStyle: {
+                                color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [
+                                    {
+                                        offset: 0,
+                                        color: 'rgba(23,113,140,0.7)'
+                                    },
+                                    {
+                                        offset: 1,
+                                        color: 'rgba(5,10,48,0.5)'
+                                    }
+                                ])
+                            },
+                            emphasis: {
+                                focus: 'series'
+                            },
+                            data: [0,20,10,160,450,60,56,200]
+                        },
+                        {
+                            name: '高级管理',
+                            type: 'line',
+                            areaStyle: {
+                                color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [
+                                    {
+                                        offset: 0,
+                                        color: 'rgba(23,113,140,0.7)'
+                                    },
+                                    {
+                                        offset: 1,
+                                        color: 'rgba(5,10,48,0.5)'
+                                    }
+                                ])
+                            },
+                            emphasis: {
+                                focus: 'series'
+                            },
+                            data: [0,12,16,20,210,40,34,30]
+                        },
+                        {
+                            name: '教育',
+                            type: 'line',
+                            areaStyle: {
+                                color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [
+                                    {
+                                        offset: 0,
+                                        color: 'rgba(23,113,140,0.7)'
+                                    },
+                                    {
+                                        offset: 1,
+                                        color: 'rgba(5,10,48,0.5)'
+                                    }
+                                ])
+                            },
+                            emphasis: {
+                                focus: 'series'
+                            },
+                            data: [18,20,490,950,120,10,130]
+                        },
+                        {
+                            name: '运营',
+                            type: 'line',
+                            areaStyle: {
+                                color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [
+                                    {
+                                        offset: 0,
+                                        color: 'rgba(23,113,140,0.7)'
+                                    },
+                                    {
+                                        offset: 1,
+                                        color: 'rgba(5,10,48,0.5)'
+                                    }
+                                ])
+                            },
+                            emphasis: {
+                                focus: 'series'
+                            },
+                            data: [15,19,28,310,468,50,34,90]
+                        }
+                    ];
+                    break;
+                case '上海':
+                linechart4option.series=[
+                        {
+                            name: '销售',
+                            type: 'line',
+                            areaStyle: {
+                                color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [
+                                    {
+                                        offset: 0,
+                                        color: 'rgba(23,22,115,0.7)'
+                                    },
+                                    {
+                                        offset: 1,
+                                        color: 'rgba(5,10,48,0.5)'
+                                    }
+                                ])
+                            },
+                            emphasis: {
+                                focus: 'series'
+                            },
+                            data: [10,100,170,690,470,10,10,320]
+                        },
+                        {
+                            name: '大数据',
+                            type: 'line',
+                            areaStyle: {
+                                color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [
+                                    {
+                                        offset: 0,
+                                        color: 'rgba(23,113,140,0.7)'
+                                    },
+                                    {
+                                        offset: 1,
+                                        color: 'rgba(5,10,48,0.5)'
+                                    }
+                                ])
+                            },
+                            emphasis: {
+                                focus: 'series'
+                            },
+                            data: [13,17,11,56.124,240,66,14]
+                        },
+                        {
+                            name: '客服',
+                            type: 'line',
+                            areaStyle: {
+                                color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [
+                                    {
+                                        offset: 0,
+                                        color: 'rgba(23,113,140,0.7)'
+                                    },
+                                    {
+                                        offset: 1,
+                                        color: 'rgba(5,10,48,0.5)'
+                                    }
+                                ])
+                            },
+                            emphasis: {
+                                focus: 'series'
+                            },
+                            data: [142,160,234,142,51,3,2,150]
+                        },
+                        {
+                            name: '互联网',
+                            type: 'line',
+                            areaStyle: {
+                                color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [
+                                    {
+                                        offset: 0,
+                                        color: 'rgba(23,113,140,0.7)'
+                                    },
+                                    {
+                                        offset: 1,
+                                        color: 'rgba(5,10,48,0.5)'
+                                    }
+                                ])
+                            },
+                            emphasis: {
+                                focus: 'series'
+                            },
+                            data: [56,88,46,145,214,12,21,188]
+                        },
+                        {
+                            name: '金融',
+                            type: 'line',
+                            areaStyle: {
+                                color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [
+                                    {
+                                        offset: 0,
+                                        color: 'rgba(23,113,140,0.7)'
+                                    },
+                                    {
+                                        offset: 1,
+                                        color: 'rgba(5,10,48,0.5)'
+                                    }
+                                ])
+                            },
+                            emphasis: {
+                                focus: 'series'
+                            },
+                            data: [10,20,30,170,380.40,10,250]
+                        },
+                        {
+                            name: '高级管理',
+                            type: 'line',
+                            areaStyle: {
+                                color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [
+                                    {
+                                        offset: 0,
+                                        color: 'rgba(23,113,140,0.7)'
+                                    },
+                                    {
+                                        offset: 1,
+                                        color: 'rgba(5,10,48,0.5)'
+                                    }
+                                ])
+                            },
+                            emphasis: {
+                                focus: 'series'
+                            },
+                            data: [9,10,20,90,390,50,10,40]
+                        },
+                        {
+                            name: '教育',
+                            type: 'line',
+                            areaStyle: {
+                                color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [
+                                    {
+                                        offset: 0,
+                                        color: 'rgba(23,113,140,0.7)'
+                                    },
+                                    {
+                                        offset: 1,
+                                        color: 'rgba(5,10,48,0.5)'
+                                    }
+                                ])
+                            },
+                            emphasis: {
+                                focus: 'series'
+                            },
+                            data: [10,12,24,440,620,40,27,100]
+                        },
+                        {
+                            name: '运营',
+                            type: 'line',
+                            areaStyle: {
+                                color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [
+                                    {
+                                        offset: 0,
+                                        color: 'rgba(23,113,140,0.7)'
+                                    },
+                                    {
+                                        offset: 1,
+                                        color: 'rgba(5,10,48,0.5)'
+                                    }
+                                ])
+                            },
+                            emphasis: {
+                                focus: 'series'
+                            },
+                            data: [4,10,5,430,600,50,42,110]
+                        }
+                    ];
+                    break;
+                case '重庆':
+                linechart4option.series=[
+                        {
+                            name: '销售',
+                            type: 'line',
+                            areaStyle: {
+                                color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [
+                                    {
+                                        offset: 0,
+                                        color: 'rgba(23,22,115,0.7)'
+                                    },
+                                    {
+                                        offset: 1,
+                                        color: 'rgba(5,10,48,0.5)'
+                                    }
+                                ])
+                            },
+                            emphasis: {
+                                focus: 'series'
+                            },
+                            data: [23,30,200,570,180,10,5,470]
+                        },
+                        {
+                            name: '大数据',
+                            type: 'line',
+                            areaStyle: {
+                                color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [
+                                    {
+                                        offset: 0,
+                                        color: 'rgba(23,113,140,0.7)'
+                                    },
+                                    {
+                                        offset: 1,
+                                        color: 'rgba(5,10,48,0.5)'
+                                    }
+                                ])
+                            },
+                            emphasis: {
+                                focus: 'series'
+                            },
+                            data: [0,0,20,19,88,132,78,23]
+                        },
+                        {
+                            name: '客服',
+                            type: 'line',
+                            areaStyle: {
+                                color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [
+                                    {
+                                        offset: 0,
+                                        color: 'rgba(23,113,140,0.7)'
+                                    },
+                                    {
+                                        offset: 1,
+                                        color: 'rgba(5,10,48,0.5)'
+                                    }
+                                ])
+                            },
+                            emphasis: {
+                                focus: 'series'
+                            },
+                            data: [34,52,36,75,90,15,3,210]
+                        },
+                        {
+                            name: '互联网',
+                            type: 'line',
+                            areaStyle: {
+                                color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [
+                                    {
+                                        offset: 0,
+                                        color: 'rgba(23,113,140,0.7)'
+                                    },
+                                    {
+                                        offset: 1,
+                                        color: 'rgba(5,10,48,0.5)'
+                                    }
+                                ])
+                            },
+                            emphasis: {
+                                focus: 'series'
+                            },
+                            data: [56,75,39,45,160,24,13,180]
+                        },
+                        {
+                            name: '金融',
+                            type: 'line',
+                            areaStyle: {
+                                color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [
+                                    {
+                                        offset: 0,
+                                        color: 'rgba(23,113,140,0.7)'
+                                    },
+                                    {
+                                        offset: 1,
+                                        color: 'rgba(5,10,48,0.5)'
+                                    }
+                                ])
+                            },
+                            emphasis: {
+                                focus: 'series'
+                            },
+                            data: [29,30,70,490,230,30,28,350]
+                        },
+                        {
+                            name: '高级管理',
+                            type: 'line',
+                            areaStyle: {
+                                color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [
+                                    {
+                                        offset: 0,
+                                        color: 'rgba(23,113,140,0.7)'
+                                    },
+                                    {
+                                        offset: 1,
+                                        color: 'rgba(5,10,48,0.5)'
+                                    }
+                                ])
+                            },
+                            emphasis: {
+                                focus: 'series'
+                            },
+                            data: [10,50,70,490.650,90,20,290]
+                        },
+                        {
+                            name: '教育',
+                            type: 'line',
+                            areaStyle: {
+                                color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [
+                                    {
+                                        offset: 0,
+                                        color: 'rgba(23,113,140,0.7)'
+                                    },
+                                    {
+                                        offset: 1,
+                                        color: 'rgba(5,10,48,0.5)'
+                                    }
+                                ])
+                            },
+                            emphasis: {
+                                focus: 'series'
+                            },
+                            data: [10,10,15,100,478,620,50,19,270]
+                        },
+                        {
+                            name: '运营',
+                            type: 'line',
+                            areaStyle: {
+                                color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [
+                                    {
+                                        offset: 0,
+                                        color: 'rgba(23,113,140,0.7)'
+                                    },
+                                    {
+                                        offset: 1,
+                                        color: 'rgba(5,10,48,0.5)'
+                                    }
+                                ])
+                            },
+                            emphasis: {
+                                focus: 'series'
+                            },
+                            data: [9,10,30,249,270,14,13,280]
+                        }
+                    ];
+                    break;
+                case '湖南长沙':
+                linechart4option.series=[
+                        {
+                            name: '销售',
+                            type: 'line',
+                            areaStyle: {
+                                color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [
+                                    {
+                                        offset: 0,
+                                        color: 'rgba(23,22,115,0.7)'
+                                    },
+                                    {
+                                        offset: 1,
+                                        color: 'rgba(5,10,48,0.5)'
+                                    }
+                                ])
+                            },
+                            emphasis: {
+                                focus: 'series'
+                            },
+                            data: [42,39,45,245,120,2,9,400]
+                        },
+                        {
+                            name: '大数据',
+                            type: 'line',
+                            areaStyle: {
+                                color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [
+                                    {
+                                        offset: 0,
+                                        color: 'rgba(23,113,140,0.7)'
+                                    },
+                                    {
+                                        offset: 1,
+                                        color: 'rgba(5,10,48,0.5)'
+                                    }
+                                ])
+                            },
+                            emphasis: {
+                                focus: 'series'
+                            },
+                            data: [0,0,2,13,42,156,58,175]
+                        },
+                        {
+                            name: '客服',
+                            type: 'line',
+                            areaStyle: {
+                                color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [
+                                    {
+                                        offset: 0,
+                                        color: 'rgba(23,113,140,0.7)'
+                                    },
+                                    {
+                                        offset: 1,
+                                        color: 'rgba(5,10,48,0.5)'
+                                    }
+                                ])
+                            },
+                            emphasis: {
+                                focus: 'series'
+                            },
+                            data: [142,130,125,250,4,9,0,145]
+                        },
+                        {
+                            name: '互联网',
+                            type: 'line',
+                            areaStyle: {
+                                color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [
+                                    {
+                                        offset: 0,
+                                        color: 'rgba(23,113,140,0.7)'
+                                    },
+                                    {
+                                        offset: 1,
+                                        color: 'rgba(5,10,48,0.5)'
+                                    }
+                                ])
+                            },
+                            emphasis: {
+                                focus: 'series'
+                            },
+                            data: [86,15,75,156,249,56,12,157]
+                        },
+                        {
+                            name: '金融',
+                            type: 'line',
+                            areaStyle: {
+                                color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [
+                                    {
+                                        offset: 0,
+                                        color: 'rgba(23,113,140,0.7)'
+                                    },
+                                    {
+                                        offset: 1,
+                                        color: 'rgba(5,10,48,0.5)'
+                                    }
+                                ])
+                            },
+                            emphasis: {
+                                focus: 'series'
+                            },
+                            data: [13,10,15,130,60,2,10,90]
+                        },
+                        {
+                            name: '高级管理',
+                            type: 'line',
+                            areaStyle: {
+                                color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [
+                                    {
+                                        offset: 0,
+                                        color: 'rgba(23,113,140,0.7)'
+                                    },
+                                    {
+                                        offset: 1,
+                                        color: 'rgba(5,10,48,0.5)'
+                                    }
+                                ])
+                            },
+                            emphasis: {
+                                focus: 'series'
+                            },
+                            data: [10,20,30,180,462,10,5,90]
+                        },
+                        {
+                            name: '教育',
+                            type: 'line',
+                            areaStyle: {
+                                color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [
+                                    {
+                                        offset: 0,
+                                        color: 'rgba(23,113,140,0.7)'
+                                    },
+                                    {
+                                        offset: 1,
+                                        color: 'rgba(5,10,48,0.5)'
+                                    }
+                                ])
+                            },
+                            emphasis: {
+                                focus: 'series'
+                            },
+                            data: [10,80,20,400,240,56,18,150]
+                        },
+                        {
+                            name: '运营',
+                            type: 'line',
+                            areaStyle: {
+                                color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [
+                                    {
+                                        offset: 0,
+                                        color: 'rgba(23,113,140,0.7)'
+                                    },
+                                    {
+                                        offset: 1,
+                                        color: 'rgba(5,10,48,0.5)'
+                                    }
+                                ])
+                            },
+                            emphasis: {
+                                focus: 'series'
+                            },
+                            data: [15,60,120,143,400,20,14,460]
+                        }
+                    ];
+                    break;
+                case '西安':
+                linechart4option.series=[
+                        {
+                            name: '销售',
+                            type: 'line',
+                            areaStyle: {
+                                color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [
+                                    {
+                                        offset: 0,
+                                        color: 'rgba(23,22,115,0.7)'
+                                    },
+                                    {
+                                        offset: 1,
+                                        color: 'rgba(5,10,48,0.5)'
+                                    }
+                                ])
+                            },
+                            emphasis: {
+                                focus: 'series'
+                            },
+                            data: [5,80,10,150,340,60,10,260]
+                        },
+                        {
+                            name: '大数据',
+                            type: 'line',
+                            areaStyle: {
+                                color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [
+                                    {
+                                        offset: 0,
+                                        color: 'rgba(23,113,140,0.7)'
+                                    },
+                                    {
+                                        offset: 1,
+                                        color: 'rgba(5,10,48,0.5)'
+                                    }
+                                ])
+                            },
+                            emphasis: {
+                                focus: 'series'
+                            },
+                            data: [12,18,24,14,145,147,13,159]
+                        },
+                        {
+                            name: '客服',
+                            type: 'line',
+                            areaStyle: {
+                                color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [
+                                    {
+                                        offset: 0,
+                                        color: 'rgba(23,113,140,0.7)'
+                                    },
+                                    {
+                                        offset: 1,
+                                        color: 'rgba(5,10,48,0.5)'
+                                    }
+                                ])
+                            },
+                            emphasis: {
+                                focus: 'series'
+                            },
+                            data: [59,99,146,149,15,34,1,157]
+                        },
+                        {
+                            name: '互联网',
+                            type: 'line',
+                            areaStyle: {
+                                color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [
+                                    {
+                                        offset: 0,
+                                        color: 'rgba(23,113,140,0.7)'
+                                    },
+                                    {
+                                        offset: 1,
+                                        color: 'rgba(5,10,48,0.5)'
+                                    }
+                                ])
+                            },
+                            emphasis: {
+                                focus: 'series'
+                            },
+                            data: [0,0,2,9,98,47,56,30]
+                        },
+                        {
+                            name: '金融',
+                            type: 'line',
+                            areaStyle: {
+                                color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [
+                                    {
+                                        offset: 0,
+                                        color: 'rgba(23,113,140,0.7)'
+                                    },
+                                    {
+                                        offset: 1,
+                                        color: 'rgba(5,10,48,0.5)'
+                                    }
+                                ])
+                            },
+                            emphasis: {
+                                focus: 'series'
+                            },
+                            data: [10,90,190,359,658,50,18,750]
+                        },
+                        {
+                            name: '高级管理',
+                            type: 'line',
+                            areaStyle: {
+                                color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [
+                                    {
+                                        offset: 0,
+                                        color: 'rgba(23,113,140,0.7)'
+                                    },
+                                    {
+                                        offset: 1,
+                                        color: 'rgba(5,10,48,0.5)'
+                                    }
+                                ])
+                            },
+                            emphasis: {
+                                focus: 'series'
+                            },
+                            data: [7,30,49,63,120,400,10,40]
+                        },
+                        {
+                            name: '教育',
+                            type: 'line',
+                            areaStyle: {
+                                color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [
+                                    {
+                                        offset: 0,
+                                        color: 'rgba(23,113,140,0.7)'
+                                    },
+                                    {
+                                        offset: 1,
+                                        color: 'rgba(5,10,48,0.5)'
+                                    }
+                                ])
+                            },
+                            emphasis: {
+                                focus: 'series'
+                            },
+                            data: [23,14,10,280,180,20,10,180]
+                        },
+                        {
+                            name: '运营',
+                            type: 'line',
+                            areaStyle: {
+                                color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [
+                                    {
+                                        offset: 0,
+                                        color: 'rgba(23,113,140,0.7)'
+                                    },
+                                    {
+                                        offset: 1,
+                                        color: 'rgba(5,10,48,0.5)'
+                                    }
+                                ])
+                            },
+                            emphasis: {
+                                focus: 'series'
+                            },
+                            data: [12,20,60,123,460,42,19,410]
+                        }
+                    ];
+                    break;
+                    case '长沙':
+                linechart4option.series=[
+                        {
+                            name: '销售',
+                            type: 'line',
+                            areaStyle: {
+                                color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [
+                                    {
+                                        offset: 0,
+                                        color: 'rgba(23,22,115,0.7)'
+                                    },
+                                    {
+                                        offset: 1,
+                                        color: 'rgba(5,10,48,0.5)'
+                                    }
+                                ])
+                            },
+                            emphasis: {
+                                focus: 'series'
+                            },
+                            data: [42,39,45,245,120,2,9,400]
+                        },
+                        {
+                            name: '大数据',
+                            type: 'line',
+                            areaStyle: {
+                                color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [
+                                    {
+                                        offset: 0,
+                                        color: 'rgba(23,113,140,0.7)'
+                                    },
+                                    {
+                                        offset: 1,
+                                        color: 'rgba(5,10,48,0.5)'
+                                    }
+                                ])
+                            },
+                            emphasis: {
+                                focus: 'series'
+                            },
+                            data: [0,0,2,13,42,156,58,175]
+                        },
+                        {
+                            name: '客服',
+                            type: 'line',
+                            areaStyle: {
+                                color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [
+                                    {
+                                        offset: 0,
+                                        color: 'rgba(23,113,140,0.7)'
+                                    },
+                                    {
+                                        offset: 1,
+                                        color: 'rgba(5,10,48,0.5)'
+                                    }
+                                ])
+                            },
+                            emphasis: {
+                                focus: 'series'
+                            },
+                            data: [142,130,125,250,4,9,0,145]
+                        },
+                        {
+                            name: '互联网',
+                            type: 'line',
+                            areaStyle: {
+                                color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [
+                                    {
+                                        offset: 0,
+                                        color: 'rgba(23,113,140,0.7)'
+                                    },
+                                    {
+                                        offset: 1,
+                                        color: 'rgba(5,10,48,0.5)'
+                                    }
+                                ])
+                            },
+                            emphasis: {
+                                focus: 'series'
+                            },
+                            data: [86,15,75,156,249,56,12,157]
+                        },
+                        {
+                            name: '金融',
+                            type: 'line',
+                            areaStyle: {
+                                color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [
+                                    {
+                                        offset: 0,
+                                        color: 'rgba(23,113,140,0.7)'
+                                    },
+                                    {
+                                        offset: 1,
+                                        color: 'rgba(5,10,48,0.5)'
+                                    }
+                                ])
+                            },
+                            emphasis: {
+                                focus: 'series'
+                            },
+                            data: [13,10,15,130,60,2,10,90]
+                        },
+                        {
+                            name: '高级管理',
+                            type: 'line',
+                            areaStyle: {
+                                color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [
+                                    {
+                                        offset: 0,
+                                        color: 'rgba(23,113,140,0.7)'
+                                    },
+                                    {
+                                        offset: 1,
+                                        color: 'rgba(5,10,48,0.5)'
+                                    }
+                                ])
+                            },
+                            emphasis: {
+                                focus: 'series'
+                            },
+                            data: [10,20,30,180,462,10,5,90]
+                        },
+                        {
+                            name: '教育',
+                            type: 'line',
+                            areaStyle: {
+                                color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [
+                                    {
+                                        offset: 0,
+                                        color: 'rgba(23,113,140,0.7)'
+                                    },
+                                    {
+                                        offset: 1,
+                                        color: 'rgba(5,10,48,0.5)'
+                                    }
+                                ])
+                            },
+                            emphasis: {
+                                focus: 'series'
+                            },
+                            data: [10,80,20,400,240,56,18,150]
+                        },
+                        {
+                            name: '运营',
+                            type: 'line',
+                            areaStyle: {
+                                color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [
+                                    {
+                                        offset: 0,
+                                        color: 'rgba(23,113,140,0.7)'
+                                    },
+                                    {
+                                        offset: 1,
+                                        color: 'rgba(5,10,48,0.5)'
+                                    }
+                                ])
+                            },
+                            emphasis: {
+                                focus: 'series'
+                            },
+                            data: [15,60,120,143,400,20,14,460]
+                        }
+                    ];
+                    break;
+                case '苏州':
+                linechart4option.series=[
+                        {
+                            name: '销售',
+                            type: 'line',
+                            areaStyle: {
+                                color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [
+                                    {
+                                        offset: 0,
+                                        color: 'rgba(23,22,115,0.7)'
+                                    },
+                                    {
+                                        offset: 1,
+                                        color: 'rgba(5,10,48,0.5)'
+                                    }
+                                ])
+                            },
+                            emphasis: {
+                                focus: 'series'
+                            },
+                            data: [9,8,140,740,180,52,41,380]
+                        },
+                        {
+                            name: '大数据',
+                            type: 'line',
+                            areaStyle: {
+                                color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [
+                                    {
+                                        offset: 0,
+                                        color: 'rgba(23,113,140,0.7)'
+                                    },
+                                    {
+                                        offset: 1,
+                                        color: 'rgba(5,10,48,0.5)'
+                                    }
+                                ])
+                            },
+                            emphasis: {
+                                focus: 'series'
+                            },
+                            data: [12,8,14,140,145,47,13,159]
+                        },
+                        {
+                            name: '客服',
+                            type: 'line',
+                            areaStyle: {
+                                color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [
+                                    {
+                                        offset: 0,
+                                        color: 'rgba(23,113,140,0.7)'
+                                    },
+                                    {
+                                        offset: 1,
+                                        color: 'rgba(5,10,48,0.5)'
+                                    }
+                                ])
+                            },
+                            emphasis: {
+                                focus: 'series'
+                            },
+                            data: [9,99,146,149,15,34,1,57]
+                        },
+                        {
+                            name: '互联网',
+                            type: 'line',
+                            areaStyle: {
+                                color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [
+                                    {
+                                        offset: 0,
+                                        color: 'rgba(23,113,140,0.7)'
+                                    },
+                                    {
+                                        offset: 1,
+                                        color: 'rgba(5,10,48,0.5)'
+                                    }
+                                ])
+                            },
+                            emphasis: {
+                                focus: 'series'
+                            },
+                            data: [17,58,24,99,198,47,56,230]
+                        },
+                        {
+                            name: '金融',
+                            type: 'line',
+                            areaStyle: {
+                                color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [
+                                    {
+                                        offset: 0,
+                                        color: 'rgba(23,113,140,0.7)'
+                                    },
+                                    {
+                                        offset: 1,
+                                        color: 'rgba(5,10,48,0.5)'
+                                    }
+                                ])
+                            },
+                            emphasis: {
+                                focus: 'series'
+                            },
+                            data: [20,190,260,600,100,10,980]
+                        },
+                        {
+                            name: '高级管理',
+                            type: 'line',
+                            areaStyle: {
+                                color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [
+                                    {
+                                        offset: 0,
+                                        color: 'rgba(23,113,140,0.7)'
+                                    },
+                                    {
+                                        offset: 1,
+                                        color: 'rgba(5,10,48,0.5)'
+                                    }
+                                ])
+                            },
+                            emphasis: {
+                                focus: 'series'
+                            },
+                            data: [5,30,130,10,290,30,10,100]
+                        },
+                        {
+                            name: '教育',
+                            type: 'line',
+                            areaStyle: {
+                                color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [
+                                    {
+                                        offset: 0,
+                                        color: 'rgba(23,113,140,0.7)'
+                                    },
+                                    {
+                                        offset: 1,
+                                        color: 'rgba(5,10,48,0.5)'
+                                    }
+                                ])
+                            },
+                            emphasis: {
+                                focus: 'series'
+                            },
+                            data: [10,20,15,230,510,20,11,100]
+                        },
+                        {
+                            name: '运营',
+                            type: 'line',
+                            areaStyle: {
+                                color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [
+                                    {
+                                        offset: 0,
+                                        color: 'rgba(23,113,140,0.7)'
+                                    },
+                                    {
+                                        offset: 1,
+                                        color: 'rgba(5,10,48,0.5)'
+                                    }
+                                ])
+                            },
+                            emphasis: {
+                                focus: 'series'
+                            },
+                            data: [23,60,50,134,500,5,2,]
+                        }
+                    ];
+                    break;
+            }
+            myCharts.setOption(linechart4option);
+        }
+        
+        
+      
+        updateLineChart5('重庆');
+        function updateLineChart5(name){
+            var myCharts = echarts.init(document.querySelector('.person_team .chart4'));
+            var linechart5option = {
+                tooltip:{
+                    formatter:'就业率{c}%'
+                },
+                grid:{
+                    left: '8%',
+                    containLabel: true
+                },
+                xAxis: {
+                    type:'value',
+                    splitLine:{
+                        show:false,
+                    },
+                    axisLabel:{
+                        show:false
+                    }
+                },
+                yAxis: {
+                    inverse:true,
+                    type:'category',
+                    data:'对比',
+                    axisTick:{
+                        show:false,
+                    } ,
+                    axisLine: {
+                        show:false
+                    },
+                    axisLabel: {
+                        show:false
+                    }
+                },
+                series: []
+            };
+            switch (name){
+                case '北京':
+                    linechart5option.series=[
+                        {
+                            type:'pictorialBar',
+                            symbol:'rect',
+                            symbolSize:[10,20],
+                            symbolMargin:2,
+                            symbolRepeat:"fixed",
+                            z:0,
+                            data:[100] ,
+                            itemStyle:{
+                                normal: {
+                                    color:'#34D5EE',
+                                }
+                            }
+                        },
+                        {
+                            type:'pictorialBar',
+                            symbol:'rect',
+                            symbolSize:[10,20],
+                            symbolMargin:2,
+                            symbolRepeat:"fixed",
+                            symbolClip:true,
+                            z:0,
+                            data:[63] ,
+                            itemStyle:{
+                                normal: {
+                                    color:'#1577FF'
+                                }
+                            }
+                        }
+                    ];
+                    break;
+                case '上海':
+                    linechart5option.series=[
+                        {
+                            type:'pictorialBar',
+                            symbol:'rect',
+                            symbolSize:[10,20],
+                            symbolMargin:2,
+                            symbolRepeat:"fixed",
+                            z:0,
+                            data:[100] ,
+                            itemStyle:{
+                                normal: {
+                                    color:'#34D5EE',
+                                }
+                            }
+                        },
+                        {
+                            type:'pictorialBar',
+                            symbol:'rect',
+                            symbolSize:[10,20],
+                            symbolMargin:2,
+                            symbolRepeat:"fixed",
+                            symbolClip:true,
+                            z:0,
+                            data:[57] ,
+                            itemStyle:{
+                                normal: {
+                                    color:'#1577FF'
+                                }
+                            }
+                        }
+                    ];
+                    break;
+                case '重庆':
+                    linechart5option.series=[
+                        {
+                            type:'pictorialBar',
+                            symbol:'rect',
+                            symbolSize:[10,20],
+                            symbolMargin:2,
+                            symbolRepeat:"fixed",
+                            z:0,
+                            data:[100] ,
+                            itemStyle:{
+                                normal: {
+                                    color:'#34D5EE',
+                                }
+                            }
+                        },
+                        {
+                            type:'pictorialBar',
+                            symbol:'rect',
+                            symbolSize:[10,20],
+                            symbolMargin:2,
+                            symbolRepeat:"fixed",
+                            symbolClip:true,
+                            z:0,
+                            data:[77] ,
+                            itemStyle:{
+                                normal: {
+                                    color:'#1577FF'
+                                }
+                            }
+                        }
+                    ];
+                    break;
+                case '湖南长沙':
+                    linechart5option.series=[
+                        {
+                            type:'pictorialBar',
+                            symbol:'rect',
+                            symbolSize:[10,20],
+                            symbolMargin:2,
+                            symbolRepeat:"fixed",
+                            z:0,
+                            data:[100] ,
+                            itemStyle:{
+                                normal: {
+                                    color:'#34D5EE',
+                                }
+                            }
+                        },
+                        {
+                            type:'pictorialBar',
+                            symbol:'rect',
+                            symbolSize:[10,20],
+                            symbolMargin:2,
+                            symbolRepeat:"fixed",
+                            symbolClip:true,
+                            z:0,
+                            data:[74] ,
+                            itemStyle:{
+                                normal: {
+                                    color:'#1577FF'
+                                }
+                            }
+                        }
+                    ];
+                    break;
+                case '陕西西安':
+                    linechart5option.series=[
+                        {
+                            type:'pictorialBar',
+                            symbol:'rect',
+                            symbolSize:[10,20],
+                            symbolMargin:2,
+                            symbolRepeat:"fixed",
+                            z:0,
+                            data:[100] ,
+                            itemStyle:{
+                                normal: {
+                                    color:'#34D5EE',
+                                }
+                            }
+                        },
+                        {
+                            type:'pictorialBar',
+                            symbol:'rect',
+                            symbolSize:[10,20],
+                            symbolMargin:2,
+                            symbolRepeat:"fixed",
+                            symbolClip:true,
+                            z:0,
+                            data:[79] ,
+                            itemStyle:{
+                                normal: {
+                                    color:'#1577FF'
+                                }
+                            }
+                        }
+                    ];
+                    break;
+                default :
+                    linechart5option.series=[
+                        {
+                            type:'pictorialBar',
+                            symbol:'rect',
+                            symbolSize:[10,20],
+                            symbolMargin:2,
+                            symbolRepeat:"fixed",
+                            z:0,
+                            data:[100] ,
+                            itemStyle:{
+                                normal: {
+                                    color:'#34D5EE',
+                                }
+                            }
+                        },
+                        {
+                            type:'pictorialBar',
+                            symbol:'rect',
+                            symbolSize:[10,20],
+                            symbolMargin:2,
+                            symbolRepeat:"fixed",
+                            symbolClip:true,
+                            z:0,
+                            data:[68] ,
+                            itemStyle:{
+                                normal: {
+                                    color:'#1577FF'
+                                }
+                            }
+                        }
+                    ];
+                    break;
+            }
+            myCharts.setOption(linechart5option);
+        }
+
+        
+        updateLineChart6('重庆');
+        function updateLineChart6(name){
+            var myCharts = echarts.init(document.querySelector('.tourist_contrast .chart5'));
+            var linechart6option = {
+                tooltip: {
+                    trigger: 'axis',
+                },
+                legend:{
+                    icon: "rect",
+                    top: 15,
+                    itemHeight: 15,
+                    itemWidth: 15,
+                    // 修改icon图形大小
+                    itemGap: 55, // 修改间距
+                    textStyle: {
+                        fontSize: 12,
+                        color: "#fff",
+                    }
+                },
+                xAxis: [
+                    {
+                        type: 'category',
+                        splitLine:{
+                            show:false
+                        },
+                        // 不显示网格线
+                        axisTick:{
+                            show:false // 不显示坐标轴刻度线
+                        },
+                        data: ['3个月', '6个月',  '1年','2年','3年']
+                    }
+                ],
+                yAxis: [
+                    {
+                        type: 'value',
+                        splitLine:{
+                            show:false
+                        },
+                        // 不显示网格线
+                        axisTick:{
+                            show:false // 不显示坐标轴刻度线
+                        },
+                        
+                    }
+                ],
+                series: []
+            };
+            switch (name){
+                case '北京':
+                    linechart6option.series=[
+                        {
+                            name: '制造业',
+                            type: 'line',
+                            emphasis: {
+                                focus: 'series'
+                            },
+                            data: [0.1,0.15,0.2,0.18,0.3]
+                        },
+                        {
+                            name: '技术类',
+                            type: 'line',
+                            emphasis: {
+                                focus: 'series'
+                            },
+                            data: [0.2,0.15,0.23,0.25,0.3]
+                        },
+                        {
+                            name: '服务业',
+                            type: 'line',
+                            emphasis: {
+                                focus: 'series'
+                            },
+                            data: [0.15,0.25,0.18,0.21,0.28]
+                        }
+                    ];
+                    break;
+                case '上海':
+                    linechart6option.series=[
+                    {
+                            name: '制造业',
+                            type: 'line',
+                            emphasis: {
+                                focus: 'series'
+                            },
+                            data: [0.1,0.12,0.18,0.2,0.3]
+                        },
+                        {
+                            name: '技术类',
+                            type: 'line',
+                            emphasis: {
+                                focus: 'series'
+                            },
+                            data: [0.05,0.15,0.23,0.25,0.15]
+                        },
+                        {
+                            name: '服务业',
+                            type: 'line',
+                            emphasis: {
+                                focus: 'series'
+                            },
+                            data: [0.15,0.12,0.18,0.22,0.2]
+                        }
+                    ];
+                    break;
+                case '重庆':
+                    linechart6option.series=[
+                    {
+                            name: '制造业',
+                            type: 'line',
+                            emphasis: {
+                                focus: 'series'
+                            },
+                            data: [0.08,0.15,0.22,0.18,0.15]
+                        },
+                        {
+                            name: '技术类',
+                            type: 'line',
+                            emphasis: {
+                                focus: 'series'
+                            },
+                            data: [0.2,0.15,0.13,0.25,0.2]
+                        },
+                        {
+                            name: '服务业',
+                            type: 'line',
+                            emphasis: {
+                                focus: 'series'
+                            },
+                            data: [0.3,0.15,0.18,0.21,0.28]
+                        }
+                    ];
+                    break;
+                case '湖南长沙':
+                    linechart6option.series=[
+                    {
+                            name: '制造业',
+                            type: 'line',
+                            emphasis: {
+                                focus: 'series'
+                            },
+                            data: [0.12,0.06,0.2,0.19,0.09]
+                        },
+                        {
+                            name: '技术类',
+                            type: 'line',
+                            emphasis: {
+                                focus: 'series'
+                            },
+                            data: [0.2,0.15,0.23,0.25,0.3]
+                        },
+                        {
+                            name: '服务业',
+                            type: 'line',
+                            emphasis: {
+                                focus: 'series'
+                            },
+                            data: [0.05,0.25,0.15,0.11,0.2]
+                        }
+                    ];
+                    break;
+                case '陕西西安':
+                    linechart6option.series=[
+                    {
+                            name: '制造业',
+                            type: 'line',
+                            emphasis: {
+                                focus: 'series'
+                            },
+                            data: [0.18,0.05,0.2,0.18,0.3]
+                        },
+                        {
+                            name: '技术类',
+                            type: 'line',
+                            emphasis: {
+                                focus: 'series'
+                            },
+                            data: [0.02,0.15,0.08,0.15,0.3]
+                        },
+                        {
+                            name: '服务业',
+                            type: 'line',
+                            emphasis: {
+                                focus: 'series'
+                            },
+                            data: [0.15,0.08,0.18,0.23,0.15]
+                        }
+                    ];
+                    break;
+                default :
+                    linechart6option.series=[
+                    {
+                            name: '制造业',
+                            type: 'line',
+                            emphasis: {
+                                focus: 'series'
+                            },
+                            data: [0.21,0.18,0.1,0.09,0.18]
+                        },
+                        {
+                            name: '技术类',
+                            type: 'line',
+                            emphasis: {
+                                focus: 'series'
+                            },
+                            data: [0.08,0.15,0.23,0.15,0.2]
+                        },
+                        {
+                            name: '服务业',
+                            type: 'line',
+                            emphasis: {
+                                focus: 'series'
+                            },
+                            data: [0.15,0.08,0.18,0.21,0.28]
+                        }
+                    ];
+                    break;
+            }
+            myCharts.setOption(linechart6option);
+        }
+    })();
+
+   
+    (function (){
+    var myCharts = echarts.init(document.querySelector('.expense_stratum .chart3_1'));
+    var option={
+            series: [
+        {
+            type: 'pie',
+            radius: ['50%', '90%'],  // 外半径和内半径
+            center: ['50%', '50%'],  // 居中
+            // adjust the start and end angle
+            startAngle: 180,
+            endAngle: 360,
+            selectedMode:'single',
+            data: [
+                {value: 1801, name: '销售'},
+                {value: 789, name: '客服', selected: true},
+                {value: 1889, name: '互联网', selected: true},
+                {value: 2221, name: '金融', selected: true}
+            ],
+            color: ['#00caca', '#02c874', '#80ffff', '#2894ff'],
+                    label:{
+                        show:false,
+                        //    标签位置，在饼图中心位置
+                        position:'center',
+                        formatter: '{d}%\n{b}',
+                        color: 'inherit',
+                        textStyle: {
+                            fontSize:14
+                        },
+                    },
+                    select:{
+                        label:{
+                            show:true
+                        }
+                    },
+                    //    标签线
+                    labelLine: {
+                        //隐藏
+                        show:false
+                    },
+
+                },
+                {
+                    //    中间圆环
+                    type:'pie',
+                    name:'中心圆',
+                    radius: ['0%', '40%'],  // 控制中心圆的大小
+            center: ['50%', '50%'], // 中心位置
+                    animation:false,
+                    hoverAnimation:false,
+                    itemStyle:{
+                        color:'rgba(121,134,203,0.2)',
+                    },
+                    data: [1]
+                }
+            ]
+        
+    
+};
+        myCharts.setOption(option)
+    })();
+    (function (){
+        var myCharts = echarts.init(document.querySelector('.expense_stratum .chart3_2'));
+        var option={
+            series: [
+                {
+                    type:'pie',
+                    radius: ['50%', '90%'],  // 外半径和内半径
+            center: ['50%', '50%'],  // 居中
+            // adjust the start and end angle
+            startAngle: 0,
+            endAngle: 180,
+                    selectedMode:'single',
+                    data: [
+                    {value: 1501, name: '运营'},
+                {value: 1923, name: '大数据', selected: true},
+                {value: 689, name: '高级管理', selected: true},
+                {value: 2221, name: '教育', selected: true}
+                    ],
+                    color:['#08e7de','#ffe772','#af0449','#03ccff'],
+                    label:{
+                        show:false,
+                        //    标签位置，在饼图中心位置
+                        position:'center',
+                        formatter: '{d}%\n{b}',
+                        color: 'inherit',
+                        textStyle: {
+                            fontSize:14
+                        },
+                    },
+                    select:{
+                        label:{
+                            show:true
+                        }
+                    },
+                    //    标签线
+                    labelLine: {
+                        //隐藏
+                        show:false
+                    },
+
+                },
+                {
+                    //    中间圆环
+                    type:'pie',
+                    name:'中心圆',
+                    radius: ['0%', '40%'],  // 控制中心圆的大小
+            center: ['50%', '50%'], // 中心位置
+                    animation:false,
+                    hoverAnimation:false,
+                    itemStyle:{
+                        color:'rgba(121,134,203,0.2)',
+                    },
+                    data: [1]
+                }
+            ]
+        }
+        myCharts.setOption(option)
+    })();
+   
+    (function (){
+        var myCharts = echarts.init(document.querySelector('.expense_stratum .chart3_3'));
+        var color=['#00caca','#02c874','#80ffff','#2894ff']
+        var option={
+            grid: [{
+                left: '38%',
+                top: '15%',
+                right: '8%',
+                bottom: '0%',
+            }],
+            xAxis: {
+                show:false,
+                type: 'value',
+                splitLine:{
+                    show:false
+                },
+                // 不显示网格线
+                axisTick:{
+                    show:false // 不显示坐标轴刻度线
+                },
+            },
+            yAxis: {
+                show:true,
+                type: 'category',
+                data: ['销售','客服','互联网','金融'],
+                axisLine: {
+                    show: false
+                },
+                axisTick:{
+                    show:false
+                },
+                axisLabel:{
+                    textStyle:{
+                        fontSize: 10,
+                        color:'#FFF',
+                    }
+                }
+            },
+            series:[
+                {
+                    type: 'bar',
+                    data:[26.88,11.78,28.19,33.15],
+                    itemStyle:{
+                        barBorderRadius:100,
+                        color:function (params){
+                            //params传进来的是柱子对象，dataindex是当前柱子的索引号
+                            return color[params.dataIndex]
+                        }
+                    },
+                    //柱子之间的距离
+                    barCategoryGap: 48,
+                    //柱子的宽度
+                    barWidth:10,
+                    barMinHeight: 20,
+                    label:{
+                        show:true,
+                        position:'outside',
+                        color:'inherit',
+                        formatter:'{c}%'
+                    }
+                }
+            ]
+        };
+        myCharts.setOption(option)
+    })();
+    (function (){
+        var myCharts = echarts.init(document.querySelector('.expense_stratum .chart3_4'));
+        var color=['#2DC4D9','#C24C6E','#00caca', '#02c874',];
+        var option= {
+            grid: [{
+                left: '20%',
+                top: '10%',
+                right: '20%',
+                bottom: '0%',
+            }],
+            xAxis: {
+                show:false,
+                type: 'value',
+            },
+            yAxis: {
+                type: 'category',
+                data: ['运营','高级管理','大数据','教育'],
+                axisTick:{
+                    show:false,
+                },
+                axisLine: {
+                    show: false
+                },
+                axisLabel:{
+                    textStyle:{
+                        fontSize: 10,
+                        color:'#FFF'
+                    }
+                }
+            },
+            series:[
+                {
+                    type: 'bar',
+                    data:[35.06,10.88,30.6,23.7],
+                    itemStyle:{
+                        barBorderRadius:100,
+                        color:function (params){
+                            //params传进来的是柱子对象，dataindex是当前柱子的索引号
+                            return color[params.dataIndex]
+                        }
+                    },
+                    //柱子之间的距离
+                    barCategoryGap: 48,
+                    //柱子的宽度
+                    barWidth:10,
+                    barMinHeight: 18,
+                    label:{
+                        show:true,
+                        color:'inherit',
+                        position:'outside',
+                        formatter: "{c}%"
+                    }
+                }
+            ]
+        };
+        myCharts.setOption(option)
+    })();
+
+   
+    (function (){
+        var myCharts=echarts.init(document.querySelector('.tourist_numbers .chart6'))
+        var option = {
+            radar: {
+                indicator: [
+                    { name: '经验不限', max: 2800 },
+                    { name: '在校/应届', max: 2800 },
+                    { name: '1年以内', max: 2800 },
+                    { name: '1-3年', max: 2800 },
+                    { name: '3-5年', max: 2800 },
+                    { name: '5-10年', max: 2800 },
+                    { name: '10年以上', max: 2800 },
+                ],
+                formatter: function (params) {
+                    return `${params.data.value}}`;
+                },
+                grid:{
+                  top:'20%'
+                },
+                axisLine: {
+                    show: false, //雷达图中心发出的射线：坐标轴轴线相关设置
+                },
+                splitLine: {
+                    "show": false //点与点的连线
+                },
+                splitArea: {
+                    "show": true
+                }
+            },
+            series: [
+                {
+                    type: 'radar',
+                    data: [
+                        {
+                            value: [431,1047,2055,2757,2274,1061,122],
+                            // name: 'Allocated Budget'
+                        },
+                    ],
+                    label: {  //显示value中具体的数值
+                        normal: {
+                            show: true,
+                            textStyle:{  //更改数值样式
+                                color:'#fff'
+                            }
+                        },
+                    },
+                }
+            ]
+        };
+        myCharts.setOption(option)
+    })()
+
+
+</script>
+</html>
